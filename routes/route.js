@@ -1,5 +1,6 @@
 var mongoose = require( 'mongoose' );
 var Userlogin = mongoose.model( 'login' );
+var Location = mongoose.model( 'location' );
 
  exports.loginUser =function(req,res){
 
@@ -9,6 +10,43 @@ var Userlogin = mongoose.model( 'login' );
 
                     // fetch user and test password verification
               Userlogin.findOne({ username: user_name }, function(err, user) {
+              if (err) throw err;
+                 var data=user;
+                  if(data!=null){
+                   if(user_name == data.username & pass_code == data.password){
+                    req.session.user = user;
+                    message="Login Successful";
+                    console.log(message);
+                    res.status(201).send(req.session.user);    
+                    return;
+                      }
+                  }  
+                  else{
+                   
+                    message="ERROR : Bad Request, Invalid value ";
+                    console.log(message);
+                    res.status(400).send(message); 
+                    // alert("Invalid username or password");
+
+                  } 
+              });            
+
+              }
+
+   exports.addLocationData =function(req,res){
+
+                  var user_name=req.body.locationname;                  
+                  var pass_code=req.body.description;
+                  var pass_code=req.body.photos;
+                  var pass_code=req.body.zipCode;
+                  var pass_code=req.body.province;
+                  var pass_code=req.body.country;
+                  var pass_code=req.body.city;
+                  var pass_code=req.body.address;
+
+
+                    // fetch user and test password verification
+              Location.findOne({ username: user_name }, function(err, user) {
               if (err) throw err;
                  var data=user;
                   if(data!=null){

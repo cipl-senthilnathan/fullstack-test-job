@@ -33,7 +33,8 @@ app.get('/', function(req,res) {
 
 
 app.post('/login',routes.loginUser);
-app.get('/places',routes.getPlaces);
+app.post('/addLocation',routes.addLocationData);
+//app.get('/places',routes.getPlaces);
 // app.get('/technology',routes.getTechnology);
 // app.get('/domain',routes.getDoamin);
 // app.get('/dashboard',routes.getDashboard);

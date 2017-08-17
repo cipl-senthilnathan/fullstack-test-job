@@ -29,6 +29,7 @@ var userloginSchema = new mongoose.Schema({
   username: {type: String, required: true, index: { unique: true }},
   password: {type: String}
 }); 
+
 mongoose.model( 'login', userloginSchema );
 
 var locationSchema = new mongoose.Schema({
