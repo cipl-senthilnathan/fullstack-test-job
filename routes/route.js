@@ -35,40 +35,38 @@ var Location = mongoose.model( 'location' );
 
    exports.addLocationData =function(req,res){
 
-                  var user_name=req.body.locationname;                  
-                  var pass_code=req.body.description;
-                  var pass_code=req.body.photos;
-                  var pass_code=req.body.zipCode;
-                  var pass_code=req.body.province;
-                  var pass_code=req.body.country;
-                  var pass_code=req.body.city;
-                  var pass_code=req.body.address;
+                  var locationname=req.body.locationname;                  
+                  var description=req.body.description;
+                  var photos=req.body.photos;
+                  var zipCode=req.body.zipCode;
+                  var province=req.body.province;
+                  var country=req.body.country;
+                  var city=req.body.city;
+                  var address=req.body.address;
 
+                    var location =new Location();
+                  
+                  location.locationname=locationname;
+                  location.description=description;
+                  location.photos=photos;
+                  location.zipCode=zipCode;
+                  location.province=province;
+                  location.country=country;
+                  location.city=city;
+                  location.address=address;
+                 
 
-                    // fetch user and test password verification
-              Location.findOne({ username: user_name }, function(err, user) {
-              if (err) throw err;
-                 var data=user;
-                  if(data!=null){
-                   if(user_name == data.username & pass_code == data.password){
-                    req.session.user = user;
-                    message="Login Successful";
-                    console.log(message);
-                    res.status(201).send(req.session.user);    
-                    return;
-                      }
-                  }  
-                  else{
-                   
-                    message="ERROR : Bad Request, Invalid value ";
-                    console.log(message);
-                    res.status(400).send(message); 
-                    // alert("Invalid username or password");
+                        location.save(function(err,savedLocation){
+                       if(err){
+                          var message="Error occured while storing new CaseStudy !!!";
+                          console.log(message+"\n"+err);
+                          res.status(500).send(message);
+                        }else{
+                         res.status(201).send(savedCaseStudy);
+                          }
+                 });
 
-                  } 
-              });            
-
-              }
+                 }
        
 	/*exports.getTechnology=function(req,res){
 

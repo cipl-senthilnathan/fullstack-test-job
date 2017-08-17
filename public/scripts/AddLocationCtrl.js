@@ -27,11 +27,11 @@
 				    }
 				}	 
 
-			$scope.addLocation=function(){
+			$scope.addLocationDetails=function(){
 				$http.post('/addLocation', $scope.addLocation).success(function(response) {
-		      	$rootScope.loginCredentials = response;
-		      	sessionStorage.setItem("loginPerson",$rootScope.loginCredentials.role);
-		      	$location.path('/dashboard');
+		      	$rootScope.addLocationDetails = response;
+		      	sessionStorage.setItem("loginPerson",$rootScope.addLocationDetails.role);
+		      	$location.path('/addLocation');
 		      });
 		    };
 
