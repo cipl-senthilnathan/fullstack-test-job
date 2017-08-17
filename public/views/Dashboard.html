@@ -1,0 +1,27 @@
+
+<div class="container_full" ng-controller="DashboardCtrl" data-ng-app="myApp">
+ <div class="container technologies clearfix" ng-if="userVisible">
+ 		<div class="col-xs-12">
+ 		<div class="col-xs-2" style="right:0">
+ 			<button type="button" class="btn btn-primary" name="Add location">Add Location</button>
+ 		</div>
+ 		</div>
+		<div class="new">
+			<div class="texh_row clearfix">
+				<div class="rows" class="grid-container">	
+					<ul class="rig columns-3">
+		                <li class="media" ng-repeat="dashboard in dashboards">
+		                  <div align="center" class="list_technologies" align="center" >
+						    <img ng-src="uploads/{{dashboard.imgurl}}" class="tech_images" alt={{dashboard.title}} />
+						    <a href="uploads{{dashboard.pdfurl}}">
+						    <h5 class="tech_name">{{dashboard.title}}<img class="tool_top_images" src="images/tool-tip.png" /></h5>
+					      </div>     
+		                </li>
+		            </ul>
+		            
+				</div>
+			</div>
+		</div>
+	</div> 
+</div>
+
