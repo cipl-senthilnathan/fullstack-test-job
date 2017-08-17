@@ -3,7 +3,7 @@
 angular.module('myCaseStudyApp', ['ui.router',
       'myApp.login',
       'myApp.dashboard',
-      'myApp.upload'
+      'myApp.addLocation'
 
     ])
 
@@ -63,16 +63,16 @@ angular.module('myCaseStudyApp', ['ui.router',
                 }
             })
 
-         .state('app.upload', {
-                url:'upload',
+         .state('app.addlocation', {
+                url:'addlocation',
                 views: {
 
                         'header@': {
-                        templateUrl : 'views/upload_header.html'
+                        templateUrl : 'views/dashboard_header.html'
                     },
                        'content@': {
-                        templateUrl : 'views/upload_case_studies.html',
-                        controller  : 'DashboardCtrl'
+                        templateUrl : 'views/addlocation.html',
+                        controller  : 'AddLocationCtrl'
                      },
                         'footer@': {
                         templateUrl : ''
