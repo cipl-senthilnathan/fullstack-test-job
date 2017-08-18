@@ -37,6 +37,7 @@ var UserFavorities = mongoose.model( 'userFavourite' );
 /**Add Location**/
    exports.addLocationData =function(req,res){
 
+                  var locationid=req.body.locationid;                  
                   var locationname=req.body.locationname;                  
                   var description=req.body.description;
                   var photos=req.body.photos;
@@ -47,7 +48,8 @@ var UserFavorities = mongoose.model( 'userFavourite' );
                   var address=req.body.address;
 
                     var location =new Location();
-                  
+
+                  location.locationid=locationid;
                   location.locationname=locationname;
                   location.description=description;
                   location.photos=photos;
@@ -72,20 +74,38 @@ var UserFavorities = mongoose.model( 'userFavourite' );
 
        /**Get Favorities**/
       exports.getFavoritiesDetails=function(req,res){
-
-              UserFavorities.find({}, function(err, records){
+              // var locationid=req.body.loginUserId;  
+              // UserFavorities.find({}, function(err, records){
             
-                      if(err){
+              //         if(err){
+              //           console.log(err);
+              //           res.status(500).send("Error Occured while fetching data from technology schema");
+              //           return;
+              //         }else{
+              //           var data=records;
+              //           res.status(200).send(data);
+              //         }
+
+              // }); 
+
+             var loginUserId=req.params.loginUserId; 
+              console.log("loginUserId"+loginUserId);
+               UserFavorities.find({ userid: loginUserId }, function(err, records) {
+             if(err){
                         console.log(err);
                         res.status(500).send("Error Occured while fetching data from technology schema");
                         return;
                       }else{
                         var data=records;
+                         console.log(data);
+                      //  console.log(data.locationid);
+                      //  Location.find({industry: {$in:data}}, function(err, records)
                         res.status(200).send(data);
                       }
-
-              }); 
+              });  
+ 
           }
+
 
 /**Add Favorities**/
 exports.addFavoritiesData =function(req,res){

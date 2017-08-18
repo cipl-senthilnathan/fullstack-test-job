@@ -34,7 +34,7 @@ app.get('/', function(req,res) {
 
 app.post('/login',routes.loginUser);
 app.post('/addLocation',routes.addLocationData);
-app.get('/getFavorities',routes.getFavoritiesDetails);
+app.get('/getFavorities/loginUserId',routes.getFavoritiesDetails);
 app.post('/addFavorities',routes.addFavoritiesData);
 // app.get('/technology',routes.getTechnology);
 // app.get('/domain',routes.getDoamin);

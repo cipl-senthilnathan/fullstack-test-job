@@ -4,8 +4,9 @@ myApplogin.controller('LoginCtrl', ['$scope', '$http','$location','$window','$ro
 
  $scope.loginCredentials = function() {
       $http.post('/login', $scope.login).success(function(response) {
-      	$rootScope.loginCredentials = response;
-      	sessionStorage.setItem("loginPerson",$rootScope.loginCredentials.role);
+      	$rootScope.loginData = response;
+      	$window.sessionStorage.setItem('loginData',$rootScope.loginData);
+      	$window.sessionStorage.setItem('loginUserId',$rootScope.loginData.userid);
       	$location.path('/dashboard');
       });
     };

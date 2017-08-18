@@ -1,9 +1,11 @@
- var addLocation = angular.module('myApp.FavoritiesCtrl', ['ui.bootstrap']);
+ var favorities = angular.module('myApp.FavoritiesCtrl', ['ui.bootstrap']);
 
-  addLocation.controller('FavoritiesCtrl', ['$scope','$rootScope', '$http','$location','$window','$timeout', function($scope,$rootScope, $http,$location,$window,$timeout) {   
+  favorities.controller('FavoritiesCtrl', ['$scope','$rootScope', '$http','$location','$window','$timeout', function($scope,$rootScope, $http,$location,$window,$timeout) {   
+
+			var loginUserId	=$window.sessionStorage.getItem('loginUserId');
 
 			$scope.getFavoritiesList=function(){
-				$http.get('/getFavorities').success(function(response) {
+				$http.get('/getFavorities/'+loginUserId).success(function(response) {
 		      	$scope.favoritiesList = response;
 		    //  	sessionStorage.setItem("loginPerson",$rootScope.addLocationDetails.role);
 		      	$location.path('/favorities');
@@ -15,7 +17,7 @@
 		      	$rootScope.addFavoritiesDetails = response;
 		     // 	sessionStorage.setItem("loginPerson",$rootScope.addFavoritiesDetails.role);
 		     alert("Success");
-		      	$location.path('/addfavorities');
+		      	$location.path('/favorities');
 		      });
 		    }
 
