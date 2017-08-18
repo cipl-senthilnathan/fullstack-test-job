@@ -1,0 +1,21 @@
+<div class="container" ng-controller="FavoritiesCtrl" data-ng-app="myApp">
+<div class="form-row">
+	<div class="col-xs-6 col-sm-4 offset">
+			<form ng-submit="addFavoritiesDetails()">
+			    <div class="form-group">
+			      <label for="favouriteid">Favorities Id</label>
+			      <input type="text" class="form-control" id="favouriteid" placeholder="Enter Favorities Id" name="favouriteid" ng-model="addFavorities.favouriteid" required>
+			    </div>
+			     <div class="form-group">
+			      <label for="locationid">Location Id</label>
+			      <input type="text" class="form-control" id="locationid" placeholder="Enter Location Id" name="locationid" ng-model="addFavorities.locationid" required>
+			    </div>
+			     <div class="form-group">
+			      <label for="userid">User Id</label>
+			      <input type="text" class="form-control" id="userid" placeholder="Enter User Id" name="userid" ng-model="addFavorities.userid" required>
+			    </div>	    
+			    <input type="submit" class="btn btn-default" value="Submit" />
+			  </form>
+	</div>
+</div>
+</div>

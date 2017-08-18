@@ -3,7 +3,8 @@
 angular.module('myCaseStudyApp', ['ui.router',
       'myApp.login',
       'myApp.dashboard',
-      'myApp.addLocation'
+      'myApp.addLocation',
+      'myApp.FavoritiesCtrl'
 
     ])
 
@@ -71,8 +72,40 @@ angular.module('myCaseStudyApp', ['ui.router',
                         templateUrl : 'views/dashboard_header.html'
                     },
                        'content@': {
-                        templateUrl : 'views/addlocation.html',
+                        templateUrl : 'views/addLocation.html',
                         controller  : 'AddLocationCtrl'
+                     },
+                        'footer@': {
+                        templateUrl : ''
+                    }
+                }
+            })
+         .state('app.favorities', {
+                url:'favorities',
+                views: {
+
+                        'header@': {
+                        templateUrl : 'views/dashboard_header.html'
+                    },
+                       'content@': {
+                        templateUrl : 'views/favorities.html',
+                        controller  : 'FavoritiesCtrl'
+                     },
+                        'footer@': {
+                        templateUrl : ''
+                    }
+                }
+            })
+         .state('app.addfavorities', {
+                url:'addfavorities',
+                views: {
+
+                        'header@': {
+                        templateUrl : 'views/dashboard_header.html'
+                    },
+                       'content@': {
+                        templateUrl : 'views/addfavorities.html',
+                        controller  : 'FavoritiesCtrl'
                      },
                         'footer@': {
                         templateUrl : ''

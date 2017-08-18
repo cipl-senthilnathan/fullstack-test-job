@@ -1,6 +1,8 @@
 var mongoose = require( 'mongoose' );
 var Userlogin = mongoose.model( 'login' );
 var Location = mongoose.model( 'location' );
+var UserFavorities = mongoose.model( 'userFavourite' );
+
 
  exports.loginUser =function(req,res){
 
@@ -32,7 +34,7 @@ var Location = mongoose.model( 'location' );
               });            
 
               }
-
+/**Add Location**/
    exports.addLocationData =function(req,res){
 
                   var locationname=req.body.locationname;                  
@@ -58,16 +60,58 @@ var Location = mongoose.model( 'location' );
 
                         location.save(function(err,savedLocation){
                        if(err){
-                          var message="Error occured while storing new CaseStudy !!!";
+                          var message="Error occured while storing new Location !!!";
                           console.log(message+"\n"+err);
                           res.status(500).send(message);
                         }else{
-                         res.status(201).send(savedCaseStudy);
+                         res.status(201).send(savedLocation);
                           }
                  });
 
                  }
-       
+
+       /**Get Favorities**/
+      exports.getFavoritiesDetails=function(req,res){
+
+              UserFavorities.find({}, function(err, records){
+            
+                      if(err){
+                        console.log(err);
+                        res.status(500).send("Error Occured while fetching data from technology schema");
+                        return;
+                      }else{
+                        var data=records;
+                        res.status(200).send(data);
+                      }
+
+              }); 
+          }
+
+/**Add Favorities**/
+exports.addFavoritiesData =function(req,res){
+
+                  var locationid=req.body.locationid;                  
+                  var favouriteid=req.body.favouriteid;
+                  var userid=req.body.userid;                
+
+                  var userFavourite =new UserFavorities();
+                  
+                  userFavourite.locationid=locationid;
+                  userFavourite.favouriteid=favouriteid;
+                  userFavourite.userid=userid;
+                 
+                        userFavourite.save(function(err,savedUserFavorities){
+                       if(err){
+                          var message="Error occured while storing new savedUserFavorities !!!";
+                          console.log(message+"\n"+err);
+                          res.status(500).send(message);
+                        }else{
+                         res.status(201).send(savedUserFavorities);
+                          }
+                 });
+
+                 }
+
 	/*exports.getTechnology=function(req,res){
 
                               TechnologyData.find({}, function(err, records){

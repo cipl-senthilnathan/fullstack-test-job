@@ -31,7 +31,7 @@
 				$http.post('/addLocation', $scope.addLocation).success(function(response) {
 		      	$rootScope.addLocationDetails = response;
 		      	sessionStorage.setItem("loginPerson",$rootScope.addLocationDetails.role);
-		      	$location.path('/addLocation');
+		      	$location.path('/addlocation');
 		      });
 		    };
 
