@@ -1,4 +1,4 @@
-﻿### Case-Study-Tool
+﻿### Full Stack Test job
 
 Step 1: Install git
 Step 2: Get the project from the bibucket using command "git clone bitbucketUrl".
