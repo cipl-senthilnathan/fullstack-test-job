@@ -36,21 +36,9 @@ var UserFavorities = mongoose.model( 'userFavourite' );
               }
 
  /**Get Favorities**/
-  exports.getFavoritiesDetails=function(req,res){
-              // var locationid=req.body.loginUserId;  
-              // UserFavorities.find({}, function(err, records){
-            
-              //         if(err){
-              //           console.log(err);
-              //           res.status(500).send("Error Occured while fetching data from technology schema");
-              //           return;
-              //         }else{
-              //           var data=records;
-              //           res.status(200).send(data);
-              //         }
-
-              // }); 
+  exports.getFavoritiesDetails=function(req,res){             
               console.log("req.params.loginUserId:"+req.params.loginUserId);
+              
              var loginUserId=req.params.loginUserId; 
               console.log("loginUserId"+loginUserId);
                UserFavorities.find({ userid: loginUserId }, function(err, records) {

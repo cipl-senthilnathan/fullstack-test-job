@@ -1,4 +1,4 @@
-<div class="container" ng-controller="FavoritiesCtrl" data-ng-app="myApp">
+<div class="container" ng-controller="FavoritiesCtrl" data-ng-app="myApp" ng-init="getPlaces();">
 <div class="form-row">
 	<div class="col-xs-6 col-sm-4 offset">
 			<form ng-submit="addFavoritiesDetails()">
@@ -7,8 +7,16 @@
 			      <input type="text" class="form-control" id="favouriteid" placeholder="Enter Favorities Id" name="favouriteid" ng-model="addFavorities.favouriteid" required>
 			    </div>
 			     <div class="form-group">
+			     <div class="col-md-3" >
 			      <label for="locationid">Location Id</label>
-			      <input type="text" class="form-control" id="locationid" placeholder="Enter Location Id" name="locationid" ng-model="addFavorities.locationid" required>
+			      </div>
+			     <!--  <input type="text" class="form-control" id="locationid" placeholder="Enter Location Id" name="locationid" ng-model="addFavorities.locationid" required> -->
+			     <div class="col-md-9">
+			     <select name="roleName" class="btn btn-primary dropdown-toggle" ng-model="place.locationid" required >
+                    <option value="">Please Select Location</option>
+                    <option ng-repeat="place in placesList"  value="{{place.locationid}}">{{place.locationname}}</option>
+                 </select>
+                 </div>
 			    </div>
 			     <div class="form-group">
 			      <label for="userid">User Id</label>

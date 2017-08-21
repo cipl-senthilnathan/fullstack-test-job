@@ -6,7 +6,6 @@
  			$scope.userFavorities=[];
 
 			$scope.getFavoritiesList=function(){
-				 // var sortUrl='/places/'+$scope.latitude+'/'+$scope.longitude+'/'+obj;
 				$http.get('/getFavorities/'+$scope.loginUserId).success(function(response) {
 		      	$scope.favoritiesList = response;
 				 for(i = 0; i < $scope.favoritiesList.length; i++) {
@@ -15,15 +14,22 @@
 			      $http.get('/getFavoritiesLocation/'+$scope.userFavorities).success(function(response) {
 		          $scope.favoritiesLocations = response; 
 		           });
-		    //  	sessionStorage.setItem("loginPerson",$rootScope.addLocationDetails.role);
 		      	$location.path('/favorities');
 		      });
 		    };
 
+		    $scope.getPlaces=function(){
+				 // var sortUrl='/places/'+$scope.latitude+'/'+$scope.longitude+'/'+obj;
+				$http.get('/places').success(function(response) {
+		      	$scope.placesList = response;
+		      	$location.path('/addfavorities');
+		      });
+		    };
+
+
 		    $scope.addFavoritiesDetails=function(){
 				$http.post('/addFavorities', $scope.addFavorities).success(function(response) {
 		      	$rootScope.addFavoritiesDetails = response;
-		     // 	sessionStorage.setItem("loginPerson",$rootScope.addFavoritiesDetails.role);
 		     alert("Success");
 		      	$location.path('/favorities');
 		      });
