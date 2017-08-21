@@ -133,7 +133,7 @@ exports.addFavoritiesData =function(req,res){
                       var result=getDistance(userlatitude,data[i].latitude,userlongitude,data[i].longitude);
                       console.log("Result :::",result);
                       newData.push({"locationname":data[i].locationname,
-                                    "_id" :data[i].ObjectId,
+                                    "_id" :data[i]._id,
                                     "imgurl" : data[i].imgurl,
                                     "longitude" : data[i].longitude,
                                     "latitude" : data[i].latitude,

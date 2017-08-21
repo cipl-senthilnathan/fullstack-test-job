@@ -3,7 +3,10 @@
   myAppDash.controller('DashboardCtrl', ['$scope', '$http','$location','$window', function($scope, $http,$location,$window) {   
 	
   $scope.locationList;
-	 navigator.geolocation.getCurrentPosition(function(location) {
+  $scope.latitude;
+  $scope.longitude;
+
+	navigator.geolocation.getCurrentPosition(function(location) {
         $scope.latitude=location.coords.latitude;
         $scope.longitude=location.coords.longitude;
         $scope.accuracy=location.coords.accuracy;
@@ -17,7 +20,22 @@
           $scope.locationList = response; 
            });
 
-      }
+      };
+      $scope.changeSort = function(obj){
+        console.log("object",obj)
+        var sortUrl='/places/'+$scope.latitude+'/'+$scope.longitude+'/'+obj;
+        console.log("Sort url::",sortUrl);
+        if(obj=="min" || obj=="max"){
+           $http.get(sortUrl).success(function(response) {
+          $scope.locationList = response; 
+           });
+        }
+        else{
+          $scope.getPlaces();
+        }
+
+       
+      };
 
 }]);
 

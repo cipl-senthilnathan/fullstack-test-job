@@ -2,17 +2,16 @@
 <div class="container" ng-controller="AddLocationCtrl" data-ng-app="myApp" ng-init="getPlaces()">
 	<div class="col-xs-2 input-block">
         <div class="frm-tx2 col-xs-12">
-            <select name="MerchantName" class="text4" ng-model="merchant.id" required>
+            <select class="form-control" name="MerchantName" ng-model="sortValue" ng-change="changeSort(sortValue)" required>
                     <option value="name">Sort By Name</option>
                     <option value="min">Min</option>
-                    <option value="min">Max</option>
+                    <option value="max">Max</option>
                 </select>
         </div>
     </div>
 	<div class="col-xs-2">
  			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addlocation">Add Location</button>
- 			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.favorities">Favorities</button> 			
-
+			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.favorities">Favorities</button>
  	</div>
  	<!-- <div class="container technologies clearfix">
  		<div class="col-xs-12">
@@ -35,7 +34,7 @@
 			</div>
 		</div>
 	</div>  -->
-	<div class="col-xs-12 no-padding">
+	<!-- <div class="col-xs-12 no-padding">
     	<div class="col-xs-12 dashboard-content-pad dashboard-content-pad-scroll">
             <div class="dashboard-content-heading" style="border: none;">
                 <h2 style="font-size: 20px;"><span class="content-icon-tab"></span><strong>Location List</strong></h2>
@@ -53,7 +52,31 @@
 	                </div>     
     			</div>	
     	</div>
-    </div>
+    </div> -->
+    <div class="col-xs-12 no-padding">
+    	<div class="col-xs-12 dashboard-content-pad dashboard-content-pad-scroll">
+            <div class="dashboard-content-heading" style="border: none;">
+                <h2 style="font-size: 20px;"><span class="content-icon-tab"></span><strong>Location List</strong></h2>
+            </div>
+        	<div class="col-md-3" ng-repeat="location in locationList">
+        		<div class="product">
+        		<button class="btn btn-icon1"><span class="glyphicon glyphicon-heart" ></span></button>
+        		 <button type="button"  class="btn btn-icon1" ng-click="serverFiles()">
+         		 <span class="glyphicon glyphicon-pencil"></span></button>
+               <!--  <a ui-sref="adminApp.systemadmin.systemadministrator"> -->
+                    <div class="product-image">
+
+                        <img ng-src="uploads{{location.imgurl}}" alt="">
+                    </div>
+                    <div class="product-info text-center">
+                        <h3 class="name"><strong>{{location.locationname}}</strong></h3>
+                        
+                            </div>
+                    </div>
+                    <!-- </a> -->
+    			</div>
+    		</div>
+    	</div>
 </div>
 
 
