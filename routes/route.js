@@ -50,7 +50,7 @@ var UserFavorities = mongoose.model( 'userFavourite' );
               //         }
 
               // }); 
-
+              console.log("req.params.loginUserId:"+req.params.loginUserId);
              var loginUserId=req.params.loginUserId; 
               console.log("loginUserId"+loginUserId);
                UserFavorities.find({ userid: loginUserId }, function(err, records) {
@@ -72,16 +72,13 @@ var UserFavorities = mongoose.model( 'userFavourite' );
 
 /**Add Favorities**/
 exports.addFavoritiesData =function(req,res){
-
-                  var locationid=req.body.locationid;                  
-                  var favouriteid=req.body.favouriteid;
-                  var userid=req.body.userid;                
-
+  
                   var userFavourite =new UserFavorities();
                   
-                  userFavourite.locationid=locationid;
-                  userFavourite.favouriteid=favouriteid;
-                  userFavourite.userid=userid;
+                  userFavourite.locationid=req.body.locationid;;
+                  userFavourite.favouriteid=req.body.favouriteid;;
+                  userFavourite.userid=req.body.userid;                
+;
                  
                         userFavourite.save(function(err,savedUserFavorities){
                        if(err){

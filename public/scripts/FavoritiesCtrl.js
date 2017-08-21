@@ -2,10 +2,10 @@
 
   favorities.controller('FavoritiesCtrl', ['$scope','$rootScope', '$http','$location','$window','$timeout', function($scope,$rootScope, $http,$location,$window,$timeout) {   
 
-			var loginUserId	=$window.sessionStorage.getItem('loginUserId');
+			$scope.loginUserId	=$window.sessionStorage.getItem('loginUserId');
 
 			$scope.getFavoritiesList=function(){
-				$http.get('/getFavorities/'+loginUserId).success(function(response) {
+				$http.get('/getFavorities/:'+$scope.loginUserId).success(function(response) {
 		      	$scope.favoritiesList = response;
 		    //  	sessionStorage.setItem("loginPerson",$rootScope.addLocationDetails.role);
 		      	$location.path('/favorities');
