@@ -13,6 +13,19 @@ var mongoose = require( 'mongoose' );
 // var caseStudy = mongoose.model( 'casestudy' );
 var fs = require('fs');
 var mkdirp = require('mkdirp');
+var LocationData = mongoose.model( 'location' );
+//google map api
+var NodeGeocoder = require('node-geocoder');
+
+var options = {
+  provider: 'google',
+  // Optional depending on the providers 
+  httpAdapter: 'https', // Default 
+  apiKey: 'AIzaSyDnDLynM7gHse31qPQuvkS9ihzi2tIR9bo', // for Mapquest, OpenCage, Google Premier 
+  formatter: 'json'         // 'gpx', 'string', ... 
+};
+//end google map api
+var geocoder = NodeGeocoder(options);
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -33,7 +46,8 @@ app.get('/', function(req,res) {
 
 
 app.post('/login',routes.loginUser);
-app.post('/addLocation',routes.addLocationData);
+app.get('/places',routes.getPlaces);
+app.get('/places/:lat/:long/:value',routes.getSortingPlaces);
 app.get('/getFavorities/loginUserId',routes.getFavoritiesDetails);
 app.post('/addFavorities',routes.addFavoritiesData);
 // app.get('/technology',routes.getTechnology);
@@ -55,10 +69,11 @@ var server=app.listen(port,function(req,res){
     console.log("Catch the action at http://localhost:"+port);
 });
 
-/*multer config starts
+// multer config starts
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
-     var dir =  './public/uploads/'+req.body.selectedTechnology+'/'+req.body.selectedDomain;
+      console.log("File Name",file.originalname);
+     var dir =  './public/uploads/'+req.body.locationname;
      if (!fs.exists(dir))
      {
       mkdirp(dir, function (err) {
@@ -80,79 +95,70 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage : storage }).array('userPhoto',2);
 
-app.post('/upload',function(req,res){
+app.post('/location',function(req,res){
 
   upload(req,res,function(err) {
-    console.log("session val :: "+req.session.user.role);
-   
-    var id=req.body.id;
-  //console.log("id in upload::"+req.body.id);
-  if(id=="undefined" || id==null || id=='')
-  { 
-    var tech=req.body.selectedTechnology;
-        var domain =req.body.selectedDomain;                  
-        var title=req.body.title;
-        var description=req.body.description;
-        var imgurl = '/' +tech+'/' +domain+'/'+req.files[0].originalname;
-        var pdfurl = '/' +tech+'/' +domain+'/'+req.files[1].originalname;
-        
+   console.log("id in upload::",req.body.locationname);
+   console.log("id in file::",req.files);
 
-        var newcaseStudy=new caseStudy();
-        newcaseStudy.technology=tech;
-        newcaseStudy.industry=domain;
-        newcaseStudy.title=title;
-        newcaseStudy.description=description;
-        newcaseStudy.imgurl=imgurl;
-        newcaseStudy.pdfurl=pdfurl;
-                  
+   var locationid="2";
+    var locName=req.body.locationname;
+    var description=req.body.description;
+    var address=req.body.address;
+    var city=req.body.city;
+    var country=req.body.country;
+    var zipCode=req.body.zipCode;
+    var latitude;
+    var values=address+''+city+''+country+''+zipCode;
 
-        
+    geocodeLoc(values, function(error, result){
+    console.log('here is your result',result);
+     
+    var newlocation=new LocationData();
+    newlocation.locationid="3"
+    newlocation.locationname=locName;
+    newlocation.description=description;
+    newlocation.zipCode=zipCode;
+    newlocation.city=city;
+    newlocation.country=country;
+    newlocation.address=address;
+    newlocation.latitude=result.lat;
+    newlocation.longitude=result.lng;
+    newlocation.imgurl='/' +locName+'/'+req.files[0].originalname;
     if(err) {
       return res.end("Error uploading file.");
       res.redirect("/#/upload");
     }
-    newcaseStudy.save(function(err,savedCaseStudy){
-             if(err){
-             var message="Error occured while storing new CaseStudy !!!";
-                console.log(message+"\n"+err);
-                res.status(500).send(message);
-                }else{
-                 res.redirect("/#/dashboard");
-                 }
-               });
-  }
-  else
-  {
-      var tech=req.body.selectedTechnology;
-      var domain =req.body.selectedDomain;                  
-      var title1=req.body.title;
-      var description1=req.body.description;
-      var imgurl1 = '/' +tech+'/' +domain+'/'+req.files[0].originalname;
-      var pdfurl1 = '/' +tech+'/' +domain+'/'+req.files[1].originalname;
-
-      caseStudy.update({ _id: { $eq: id } },{ $set: { technology: tech,industry: domain,title: title1,description: description1,imgurl: imgurl1,pdfurl: pdfurl1}}).exec(function(err,record){
-                                 if(err){
-                                   console.log("Error Occured ");
-                                   res.status(404).send("Record Not Found");
-                                 }
-                                 else{
-                                       if(!record){
-                                         res.status(404).send("No Employee found with ticketId "+ticketId);
-                                         }                              
-                                          else{
-                                                 // res.status(200).send();
-                                                  res.redirect("/#/dashboard");
-                                              }
-                                       }
-
-                                        });
-
-  }
+    newlocation.save(function(err,savedlocation){
+      if(err){
+        var message="Error in adding new location !!!";
+        console.log(message+"\n"+err);
+        res.status(500).send(message);
+      }else{
+        res.status(200).send("location added successfully");
+        }
+    });
+    });    
 
   });
 
 });
-multer config end*/
+
+var request = require('request');
+var geocodeLoc = function(location, callback)
+    {
+        var result;
+        var baseURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location;
+        request(baseURL, function(e, r, b){
+        if(!e && r.statusCode == 200){
+            result = (JSON.parse(b).results[0].geometry.location);
+            console.log(result);
+            callback(null, result);
+        }else{
+            callback(e);
+        }
+    });
+}
 
 
 
