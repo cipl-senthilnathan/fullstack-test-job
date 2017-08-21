@@ -16,8 +16,7 @@
             <table class="col-md-12 table-striped table-condensed cf table-change common-table">
             <thead>                                                      
                <tr>
-<!--                     <th>Favorities Id</th>
- -->                    <th>Location Id</th>
+                    <th>Location Id</th>
                     <th>User Id</th>
                     <th>Location Name</th>
                     <th>Description</th>
@@ -30,8 +29,7 @@
             </thead>
             <tbody class="common-table-head" ng-repeat="favorities in favoritiesLocations">
             <tr>
-<!--                  <td data-title="Name">{{favorities.favouriteid}}</td>
- -->                 <td data-title="Subscription Type">{{favorities.locationid}}</td>
+                 <td data-title="Subscription Type">{{favorities.locationid}}</td>
                  <td data-title="Member Since">{{favorities.userid}}</td>
                  <td data-title="Name">{{favorities.locationname}}</td>
                  <td data-title="Subscription Type">{{favorities.description}}</td>
@@ -39,6 +37,10 @@
                  <td data-title="Name">{{favorities.address}}</td>
                  <td data-title="Subscription Type">{{favorities.city}}</td>
                  <td data-title="Member Since">{{favorities.imgurl}}</td>
+                 <td>
+                     <button type="button" class="btn btn-danger" ng-click="deleteFavorities(favorities.locationid)">Danger</button>
+                 </td>
+
             </tr>
             </tbody>
         </table>

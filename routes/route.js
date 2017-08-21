@@ -98,6 +98,28 @@ exports.addFavoritiesData =function(req,res){
                  });
 
   }
+
+  /**Delete Favorities**/
+  exports.deleteFavoritiesDetails=function(req,res){             
+              console.log("req.params.loginUserId:"+req.params.favorite);
+              
+             var locationid=req.params.favorite; 
+             
+              console.log("loginUserId"+locationid);
+               UserFavorities.remove({ locationid: locationid }, function(err, records) {
+             if(err){
+                      console.log(err);
+                      res.status(500).send("Error in removing document");
+                      return;
+                  }else{
+                        var message="Deleted Successfully"
+                        console.log("Deleted Successfully");
+                        res.status(201).send(message); 
+                      }
+              });  
+ 
+          }
+
   exports.getPlaces=function(req,res){
 
               Location.find({}, function(err, records){                            
