@@ -173,3 +173,37 @@ select#soflow, select#soflow-color {
     padding-top: 5px;
 }
 
+.product{background: #fff;width: 200px;margin: auto;border-radius: 10px;}
+.product .product-info .name{
+    color: #0d2e4e;
+}
+.product-info{padding: 10px;
+}
+.product .product-info .name {
+    font-size: 15px;
+    margin:0;text-align: center;
+    padding: 10px 0;
+}
+.product .product-info .product-price .price {
+    color: #333;
+}
+.product .product-info .product-price .price {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 30px;
+    margin-right: 8px;
+}
+.product-image
+{
+    position: relative;height: 135px;margin-top: 30px;
+}
+.product-image img{position: absolute;left: 0;right: 0;top: 0;bottom: 0;margin: auto;max-width: 100%;max-height: 100%;}
+.content-icon-tab {
+    position: relative;
+    padding-right: 20px;
+    top: 0px;
+}
+
+.product-image:hover{
+    -webkit-animation: bounce 2s infinite;
+}

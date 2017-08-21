@@ -1,9 +1,18 @@
 
-<div class="container_full" ng-controller="AddLocationCtrl" data-ng-app="myApp">
-<div class="col-xs-2">
+<div class="container" ng-controller="AddLocationCtrl" data-ng-app="myApp" ng-init="getPlaces()">
+	<div class="col-xs-2 input-block">
+        <div class="frm-tx2 col-xs-12">
+            <select name="MerchantName" class="text4" ng-model="merchant.id" required>
+                    <option value="name">Sort By Name</option>
+                    <option value="min">Min</option>
+                    <option value="min">Max</option>
+                </select>
+        </div>
+    </div>
+	<div class="col-xs-2">
  			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addlocation">Add Location</button>
- 		</div>
- <div class="container technologies clearfix">
+ 	</div>
+ 	<!-- <div class="container technologies clearfix">
  		<div class="col-xs-12">
  		
  		</div>
@@ -13,7 +22,7 @@
 					<ul class="rig columns-3">
 		                <li class="media" >
 		                  <div align="center" class="list_technologies" align="center" >
-						    <!-- <img  class="tech_images" alt={{dashboard.title}} /> -->
+						    <img  class="tech_images" alt={{dashboard.title}} /> 
 						    <a href="uploads">
 						    <h5 class="tech_name"><img class="tool_top_images" src="images/tool-tip.png" /></h5>
 					      </div>     
@@ -23,7 +32,26 @@
 				</div>
 			</div>
 		</div>
-	</div> 
+	</div>  -->
+	<div class="col-xs-12 no-padding">
+    	<div class="col-xs-12 dashboard-content-pad dashboard-content-pad-scroll">
+            <div class="dashboard-content-heading" style="border: none;">
+                <h2 style="font-size: 20px;"><span class="content-icon-tab"></span><strong>Location List</strong></h2>
+            </div>
+        		<div class="col-md-3" ng-repeat="location in locationList">
+	        		<div class="product">
+	                <a ui-sref="">
+	                    <div class="product-image">
+	                        <img ng-src="uploads/{{location.imgurl}}" alt="">
+	                    </div>
+	                    <div class="product-info text-center">
+	                        <h3 class="name"><strong>{{location.locationname}}</strong></h3>
+	                    </div>
+	                </a>
+	                </div>     
+    			</div>	
+    	</div>
+    </div>
 </div>
 
 

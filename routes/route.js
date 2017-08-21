@@ -34,46 +34,9 @@ var UserFavorities = mongoose.model( 'userFavourite' );
               });            
 
               }
-/**Add Location**/
-   exports.addLocationData =function(req,res){
 
-                  var locationid=req.body.locationid;                  
-                  var locationname=req.body.locationname;                  
-                  var description=req.body.description;
-                  var photos=req.body.photos;
-                  var zipCode=req.body.zipCode;
-                  var province=req.body.province;
-                  var country=req.body.country;
-                  var city=req.body.city;
-                  var address=req.body.address;
-
-                    var location =new Location();
-
-                  location.locationid=locationid;
-                  location.locationname=locationname;
-                  location.description=description;
-                  location.photos=photos;
-                  location.zipCode=zipCode;
-                  location.province=province;
-                  location.country=country;
-                  location.city=city;
-                  location.address=address;
-                 
-
-                        location.save(function(err,savedLocation){
-                       if(err){
-                          var message="Error occured while storing new Location !!!";
-                          console.log(message+"\n"+err);
-                          res.status(500).send(message);
-                        }else{
-                         res.status(201).send(savedLocation);
-                          }
-                 });
-
-                 }
-
-       /**Get Favorities**/
-      exports.getFavoritiesDetails=function(req,res){
+ /**Get Favorities**/
+  exports.getFavoritiesDetails=function(req,res){
               // var locationid=req.body.loginUserId;  
               // UserFavorities.find({}, function(err, records){
             
@@ -130,259 +93,99 @@ exports.addFavoritiesData =function(req,res){
                           }
                  });
 
-                 }
+  }
+  exports.getPlaces=function(req,res){
 
-	/*exports.getTechnology=function(req,res){
+              Location.find({}, function(err, records){                            
+                if(err){
+                  console.log(err);
+                  res.status(500).send("Error Occured while fetching data location table");
+                  return;
+                }else{
+                  var data=records;
+                  console.log("Successfully")
+                  res.status(200).send(data);
+                }
 
-                              TechnologyData.find({}, function(err, records){
-                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from technology schema");
-                                        return;
-                                      }else{
-                                        var data=records;
-                                        res.status(200).send(data);
-                                      }
+              });    
 
-                              }); 
+  }
+  exports.getSortingPlaces=function(req,res){
+            var userlatitude=req.params.lat;
+            var userlongitude=req.params.long;
+            var type=req.params.value;
+            var newData=[];
+            console.log("userlatitude",userlatitude);
+              Location.find({}, function(err, records){                            
+                if(err){
+                  console.log(err);
+                  res.status(500).send("Error Occured while fetching data location table");
+                  return;
+                }else{
+                  var data=records;
+                  console.log("Successfully");
+                  var i;
+                  for(i = 0; i < data.length; i++) {
+                      var result=getDistance(userlatitude,data[i].latitude,userlongitude,data[i].longitude);
+                      console.log("Result :::",result);
+                      newData.push({"locationname":data[i].locationname,
+                                    "_id" :data[i].ObjectId,
+                                    "imgurl" : data[i].imgurl,
+                                    "longitude" : data[i].longitude,
+                                    "latitude" : data[i].latitude,
+                                    "address" : data[i].address,
+                                    "country" : data[i].country,
+                                    "city" : data[i].city,
+                                    "description" :data[i].description,
+                                    "distance" : result,
+                                    "locationid" : data[i].locationid})
+                      console.log("newData :::",newData);
+                  }
+                  if(type=="min"||type=="Min"){
+                    newData=getMin(newData,"distance");
+                  }
+                  else{
+                    newData=getMax(newData,"distance");
+                  }
+                  res.status(200).send(newData);
+                }
 
-                            }
+              });    
 
-exports.getDoamin=function(req,res){
+  }
 
-                              IndustryData.find({}, function(err, records){
-                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from technology schema");
-                                        return;
-                                      }else{
-                                        var data=records;
-                                        res.status(200).send(data);
-                                      }
+  function getDistance(lati1,lati2,longi1,longi2){
+          var lat1 =lati1;
+          var lat2 =lati2;
 
-                              }); 
+          var lon1 =longi1;
+          var lon2 =longi2;
 
-                            }
+          var R = 6371; // Radius of the earth in km
+          var dLat = deg2rad(lat2-lat1);  // deg2rad below
+          var dLon = deg2rad(lon2-lon1); 
+          var a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+            ; 
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+          var d = R * c; // Distance in km
+           console.log("result"+d);
+           return d;
 
+  };
+  function deg2rad(deg) {
+          return deg * (Math.PI/180)
+  }
 
-
-exports.getDashboard=function(req,res){
-  
-                  caseStudy.find({},function(err, records){                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
-                                        return;
-                                      }else{
-                                        var data = records;
-                                      //  console.log("data check :: "+data);
-                                        res.status(200).send(data);
-                                      }
-
-                              });
-                             
-                            }
-
-  exports.getDashboardParamDomainId=function(req,res){
-
-  var domain= req.params.domainId;
-  var domainArr = domain.split(",").map(function (val) {
-        return val;
-      });
-   caseStudy.find({industry: {$in:domainArr}}, function(err, records){
-                           
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
-                                        return;
-                                      }else{
-                                        var data = records;
-                                        //console.log("inside getDashboardParamDomainId data "+data); 
-                                        res.status(200).send(data);
-                                      }
-
-                              }); 
-                            }   
-
-  exports.getDashboardParamTechId=function(req,res){
-   var tech =req.params.techId;
-   var techArr = tech.split(",").map(function (val) {
-        return val;
-      });
-   caseStudy.find({technology: {$in:techArr}}, function(err, records){                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
-                                        return;
-                                      }else{
-                                        var data = records;
-                                       //  console.log("inside getDashboardParamTechId data"+data);
-                                        res.status(200).send(data);
-                                      }
-
-                              }); 
-                            } 
-
-  exports.getDashboardParamTechAndDomain=function(req,res){
-  var domain =req.params.domainId;
-   var domainArr = domain.split(",").map(function (val) {
-        return val;
-      });
-   var tech =req.params.techId;
-   var techArr = tech.split(",").map(function (val) {
-        return val;
-      });
- 
-   
-  caseStudy.find({$and:[{technology: {$in:techArr}},{industry: {$in:domainArr}}]}, function(err, records){
-                                      if(err){
-                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
-                                        return;
-                                      }else{
-                                        var data = records;
-                                        res.status(200).send(data);
-                                      }
-
-                              }); 
-                            }*/
-
-/*
-exports.getDashboardParamDomainId=function(req,res){
-   var domain =req.params.domainId;
-   
-                              caseStudy.find({industry: domain}, function(err, records){                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
-                                        return;
-                                      }else{
-                                        var data = records;
-                                        console.log("data check :: "+data);
-                                        res.status(200).send(data);
-                                      }
-
-                              }); 
-                            }
-
-
-
-exports.getDashboardParamTechAndDomain=function(req,res){
-  var domain =req.params.domainId;
-  // console.log("domain : "+domain);
-   var tech =req.params.techId;
-  // console.log("tech : "+tech);
-   
-  //caseStudy.find({$and:[{technology: {$in:["Java","Android"]}},{industry: {$in:["Banking","Health Care"]}}]}, function(err, records){
-                              caseStudy.find({$and:[{industry: domain},{technology: tech}]}, function(err, records){                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
-                                        return;
-                                      }else{
-                                        var data = records;
-                                        res.status(200).send(data);
-                                      }
-
-                              }); 
-                            }
-
-                         
-exports.getDashboardParamTechAndDomainTest=function(req,res){
-  var domain =req.params.domainId;
-  var tech =req.params.techId;
-
-                              caseStudy.find({$and:[{technology: tech},{industry: domain}]}, function(err, records){                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
-                                        return;
-                                      }else{
-                                        var data = records;
-                                        res.status(200).send(data);
-                                      }
-
-                              }); 
-                            }
-                         */
-
-/*exports.getUpload=function(req,res){
-                  var tech=req.body.selectedTechnology;
-                  var domain =req.body.selectedDomain;                  
-                  var tittle=req.body.title;
-                  var description=req.body.description;
-                  var image = req.body.myImageFile;
-                  
-
-                  console.log( '/' +tech+'/' +domain+'/'+image );
-                  var pdf = req.body.myPdfFile;
-
-
-                  console.log( '/' +tech+'/' +domain+'/'+pdf );
-
-                  var newcaseStudy=new caseStudy();
-                  newcaseStudy.technology=tech;
-                  newcaseStudy.industry=domain;
-                  newcaseStudy.title=tittle;
-                  newcaseStudy.description=description;
-                  /*newcaseStudy.imgurl=image;
-                  newcaseStudy.pdfurl=pdf;*/
-                  
-
-                /*  newcaseStudy.save(function(err,savedCaseStudy){
-                       if(err){
-                          var message="Error occured while storing new CaseStudy !!!";
-                          console.log(message+"\n"+err);
-                          res.status(500).send(message);
-                        }else{
-                         res.status(201).send(savedCaseStudy);
-                          }
-                 });
-
-                 }*/
-
-
-   /* exports.getDeleteimg=function(req,res){
-      var id =req.params.id1;
-      console.log("id="+id);
-
-                              caseStudy.remove({_id: id}, function(err, records){                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error in removing document");
-                                        return;
-                                      }else{
-                                        var message="Deleted Successfully"
-                                        console.log("Deleted Successfully");
-                                        res.status(201).send(message); 
-                                      }
-
-                              }); 
-
-        
-}
-    exports.getUpdateDetails=function(req,res){
-      var id =req.params.id1;
-      //console.log("id="+id);
-
-                              caseStudy.findOne({_id: id}, function(err, records){                            
-                                      if(err){
-                                        console.log(err);
-                                        res.status(500).send("Error in removing document");
-                                        return;
-                                      }else{
-                                        var message="Fetched Data";
-                                        //console.log(message);
-                                        var data = records;
-                                        res.status(200).send(data);
-                                      }
-
-                              }); 
-
-        
-}*/
-
-			  
-			  
-
+  function getMax(arr, prop) {
+    return arr.sort(function(a,b) { 
+    return a[prop] < b[prop];
+  });
+  } 
+  function getMin(arr, prop) {
+    return arr.sort(function(a,b) { 
+    return a[prop] > b[prop];
+  });
+  } 

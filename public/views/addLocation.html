@@ -1,45 +1,64 @@
 <div class="container" ng-controller="AddLocationCtrl" data-ng-app="myApp">
 <div class="form-row">
-	<div class="col-xs-6 col-sm-4 offset">
-			<form ng-submit="addLocationDetails()">
+	<div class="col-xs-6 col-sm-6 offset">
+			<form class="form-horizontal" id="uploadForm" name="usercaseform" enctype="multipart/form-data" action="/location" method="post">
 			    <div class="form-group">
-			      <label for="locationName">Location Name</label>
-			      <input type="text" class="form-control" id="email" placeholder="Enter location name" name="locationname" ng-model="addLocation.locationname" required>
+			      <label class="control-label col-sm-4" for="locationName">Location Name</label>
+			      	<div class="col-sm-8">
+			      		<input type="text" class="form-control" id="email" placeholder="Enter location name" name="locationname" ng-model="addLocation.locationname" required>
+			      	</div>
 			    </div>
 			     <div class="form-group">
-			      <label for="description">Description</label>
-			      <input type="text" class="form-control" id="description" placeholder="Enter description" name="description" ng-model="addLocation.description" required>
+			      <label class="control-label col-sm-4" for="description">Description</label>
+			      	<div class="col-sm-8">
+			      		<input type="text" class="form-control" id="description" placeholder="Enter description" name="description" ng-model="addLocation.description" required>
+			      	</div>
 			    </div>
 			     <!-- <div class="form-group">
 			      <label for="photos">Photos</label>
 			      <input type="text" class="form-control" id="email" placeholder="Enter photo" name="photos">
 			    </div> -->
 			     <div class="form-group">
-			     <label for="photos">Photos</label>
-                        <input type="file"  file-input="files" ng-model="newFile" multiple valid-file name="file" onchange="angular.element(this).scope().photoChanged(this.files)" required="required"/>
-                        <img ng-src="{{ thumbnail.dataUrl }}" style="border:solid 1px #b1a5a5;width:100px;height:100px;margin:5px;float:left;" />
+			     <label class="control-label col-sm-4" for="photos">Photos</label>
+			     	<div class="col-sm-8">
+			     		<input type="file" class="uploadbtn uploadbtn2"  ng-model="newFile"  name="userPhoto" ng-model="imagefile" accept="image/x-png, image/gif, image/jpeg" onchange="angular.element(this).scope().photoChanged(this.files)" required />
+                        <!-- <input type="file"  file-input="files" ng-model="newFile" multiple valid-file name="file" onchange="angular.element(this).scope().photoChanged(this.files)" required="required"/>-->
+                        <img ng-src="{{ thumbnail.dataUrl }}" style="border:solid 1px #b1a5a5;width:100px;height:100px;margin:5px;float:left;" /> 
+                    </div>
                 </div>
 			     <div class="form-group">
-			      <label for="zipCode">ZipCode</label>
-			      <input type="text" class="form-control" id="zipCode" placeholder="Enter zip code" name="zipCode" ng-model="addLocation.zipCode" required>
+			      <label class="control-label col-sm-4" for="zipCode">ZipCode</label>
+			      	<div class="col-sm-8">
+			      		<input type="text" class="form-control" id="zipCode" placeholder="Enter zip code" name="zipCode" ng-model="addLocation.zipCode" required>
+			      	</div>
 			    </div>
 			     <div class="form-group">
-			      <label for="province">Province</label>
-			      <input type="text" class="form-control" id="province" placeholder="Enter province" name="province" ng-model="addLocation.province" required>
+			      <label class="control-label col-sm-4" for="province">Province</label>
+			      	<div class="col-sm-8">
+			      		<input type="text" class="form-control" id="province" placeholder="Enter province" name="province" ng-model="addLocation.province" required>
+			      	</div>
 			    </div>
 			    <div class="form-group">
-			      <label for="country">Country</label>
-			      <input type="text" class="form-control" id="country" placeholder="Enter country" name="country" ng-model="addLocation.country" required>
+			      <label class="control-label col-sm-4" for="country">Country</label>
+			       	<div class="col-sm-8">
+			      		<input type="text" class="form-control" id="country" placeholder="Enter country" name="country" ng-model="addLocation.country" required>
+			      	</div>
 			    </div>
 			     <div class="form-group">
-			      <label for="city">City</label>
-			      <input type="text" class="form-control" id="city" placeholder="Enter city" name="city" ng-model="addLocation.city" required>
+			      <label class="control-label col-sm-4" for="city">City</label>
+			       	<div class="col-sm-8">
+			      		<input type="text" class="form-control" id="city" placeholder="Enter city" name="city" ng-model="addLocation.city" required>
+			      	</div>
 			    </div>
 			     <div class="form-group">
-			      <label for="address">Address</label>
-			      <input type="text" class="form-control" id="address" placeholder="Enter address" name="address" ng-model="addLocation.address" required>
-			    </div>			    
-			    <input type="submit" class="btn btn-default" value="Submit" />
+			      <label class="control-label col-sm-4" for="address">Address</label>
+			       	<div class="col-sm-8">
+			      		<input type="text" class="form-control" id="address" placeholder="Enter address" name="address" ng-model="addLocation.address" required>
+			      	</div>
+			    </div>
+			    <div class="col-sm-offset-6 col-sm-8">			    
+			    <input type="submit" class="btn btn-default"  value="Submit" />
+			    </div>
 			  </form>
 	</div>
 </div>
