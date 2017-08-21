@@ -59,9 +59,8 @@ var UserFavorities = mongoose.model( 'userFavourite' );
                         res.status(500).send("Error Occured while fetching data from technology schema");
                         return;
                       }else{
-                        var data=records;
-                         console.log(data);
-                      //  console.log(data.locationid);
+                        var data=records;                       
+                       console.log("datas"+data);
                       //  Location.find({industry: {$in:data}}, function(err, records)
                         res.status(200).send(data);
                       }
@@ -69,10 +68,30 @@ var UserFavorities = mongoose.model( 'userFavourite' );
  
           }
 
+exports.getFavoritiesLocationDetails=function(req,res){
+
+        var location= req.params.locationid;
+        var userFavoritiesArr = location.split(",").map(function (val) {
+              return val;
+            });
+   Location.find({locationid: {$in:userFavoritiesArr}}, function(err, records){
+                           
+                                      if(err){
+                                        console.log(err);
+                                        res.status(500).send("Error Occured while fetching data from caseStudy schema");
+                                        return;
+                                      }else{
+                                        var data = records;
+                                        console.log(data);
+                                        res.status(200).send(data);
+                                      }
+
+                              }); 
+                            }  
 
 /**Add Favorities**/
 exports.addFavoritiesData =function(req,res){
-  
+
                   var userFavourite =new UserFavorities();
                   
                   userFavourite.locationid=req.body.locationid;;

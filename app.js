@@ -48,7 +48,8 @@ app.get('/', function(req,res) {
 app.post('/login',routes.loginUser);
 app.get('/places',routes.getPlaces);
 app.get('/places/:lat/:long/:value',routes.getSortingPlaces);
-app.get('/getFavorities/loginUserId',routes.getFavoritiesDetails);
+app.get('/getFavorities/:loginUserId',routes.getFavoritiesDetails);
+app.get('/getFavoritiesLocation/:locationid',routes.getFavoritiesLocationDetails);
 app.post('/addFavorities',routes.addFavoritiesData);
 // app.get('/technology',routes.getTechnology);
 // app.get('/domain',routes.getDoamin);

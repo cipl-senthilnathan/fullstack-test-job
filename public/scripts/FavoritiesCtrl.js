@@ -3,10 +3,18 @@
   favorities.controller('FavoritiesCtrl', ['$scope','$rootScope', '$http','$location','$window','$timeout', function($scope,$rootScope, $http,$location,$window,$timeout) {   
 
 			$scope.loginUserId	=$window.sessionStorage.getItem('loginUserId');
+ 			$scope.userFavorities=[];
 
 			$scope.getFavoritiesList=function(){
-				$http.get('/getFavorities/:'+$scope.loginUserId).success(function(response) {
+				 // var sortUrl='/places/'+$scope.latitude+'/'+$scope.longitude+'/'+obj;
+				$http.get('/getFavorities/'+$scope.loginUserId).success(function(response) {
 		      	$scope.favoritiesList = response;
+				 for(i = 0; i < $scope.favoritiesList.length; i++) {
+				 		$scope.userFavorities.push($scope.favoritiesList[i].locationid);
+				 	}
+			      $http.get('/getFavoritiesLocation/'+$scope.userFavorities).success(function(response) {
+		          $scope.favoritiesLocations = response; 
+		           });
 		    //  	sessionStorage.setItem("loginPerson",$rootScope.addLocationDetails.role);
 		      	$location.path('/favorities');
 		      });
