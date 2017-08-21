@@ -83,9 +83,26 @@ exports.addFavoritiesData =function(req,res){
                   var userFavourite =new UserFavorities();
                   
                   userFavourite.locationid=req.body.locationid;;
-                  userFavourite.favouriteid=req.body.favouriteid;;
-                  userFavourite.userid=req.body.userid;                
-;
+                  // userFavourite.favouriteid=req.body.favouriteid;;
+                  userFavourite.userid=req.body.userid; 
+
+                   var location =new Location();
+                 location.isfavorite=req.body.isFavorite;      
+                  console.log("isFavorite"+location.isfavorite);          
+
+                  Location.update({ locationid: { $eq: userFavourite.locationid } },
+                    { $set: { isfavorite: location.isfavorite}}).exec(function(err,record){
+                                 if(err){
+                                   console.log("Error Occured ");
+                                   res.status(404).send("Record Not Found");
+                                 }
+                                 else{
+                                       if(!record){
+                                         res.status(404).send("No location found with ticketId "+ticketId);
+                                         }                              
+                                          
+                                       }
+                                       });
                  
                         userFavourite.save(function(err,savedUserFavorities){
                        if(err){
@@ -98,6 +115,7 @@ exports.addFavoritiesData =function(req,res){
                  });
 
   }
+
 
   /**Delete Favorities**/
   exports.deleteFavoritiesDetails=function(req,res){             

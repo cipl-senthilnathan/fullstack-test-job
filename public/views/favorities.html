@@ -1,9 +1,9 @@
 
 <div class="container_full" ng-controller="FavoritiesCtrl" data-ng-app="myApp">
 <div class="col-xs-2">
- 		<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addfavorities">Add Favorities</button>
+ 		<!-- <button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addfavorities">Add Favorities</button>
  		</div>
-
+ -->
 
  <div class="container technologies clearfix">
  		<div class="col-xs-12">
@@ -13,7 +13,7 @@
         <div><label style="margin-left: 25px;font-size: large;">Favorities List</label>
                 </div>
         <div id="no-more-tables" class="col-xs-12" style="margin-bottom: 20px;">
-            <table class="col-md-12 table-striped table-condensed cf table-change common-table">
+            <!-- <table class="col-md-12 table-striped table-condensed cf table-change common-table">
             <thead>                                                      
                <tr>
                     <th>Location Id</th>
@@ -36,14 +36,61 @@
                  <td data-title="Member Since">{{favorities.country}}</td>
                  <td data-title="Name">{{favorities.address}}</td>
                  <td data-title="Subscription Type">{{favorities.city}}</td>
-                 <td data-title="Member Since">{{favorities.imgurl}}</td>
+                 <td data-title="Member Since">
+                  <div class="product-image">
+                        <img ng-src="uploads{{favorities.imgurl}}" alt="">
+                </div>
+                 </td>
                  <td>
                      <button type="button" class="btn btn-danger" ng-click="deleteFavorities(favorities.locationid)">Danger</button>
                  </td>
 
             </tr>
             </tbody>
-        </table>
+        </table> -->
+        <div class="col-md-3" ng-repeat="favorities in favoritiesLocations">
+                <div class="product">
+<!--                 <button class="btn btn-icon1"><span class="glyphicon glyphicon-heart" ></span></button>
+ -->              <div ng-if="!favorities.isfavorite">
+                 <button type="button"  class="btn btn-icon1" >
+                 <span>
+                 <!--  <a ui-sref="app.addfavorities"> -->
+                 <a href="" ng-click="addFavoritiesDetails()">
+                  <img src="images/favorite-add.png"></a>
+                  </span>
+                  </button> 
+                  </div>  
+                  <div ng-if="favorities.isfavorite">          
+                  <button type="button"  class="btn btn-icon1" ><span>
+                  <!-- <a ui-sref="app.addfavorities"> -->
+                  <a href="" ng-click="addFavoritiesDetails()">
+                  <img src="images/favorite-add1.png"></a>
+                  </span>
+                  </button> 
+                  </div> 
+                  <div> 
+                 <button type="button"  class="btn btn-icon1" >
+                 <span >
+                  <a href="" ng-click="deleteFavorities(favorities.locationid)"><img src="images/delete.png"></a>
+                  </span>
+                  </button>
+                  </div>
+                  
+
+               <!--  <a ui-sref="adminApp.systemadmin.systemadministrator"> -->
+                    <div class="product-image">
+
+                        <img ng-src="uploads{{favorities.imgurl}}" alt="">
+                    </div>
+                    <div class="product-info text-center">
+                        <h3 class="name"><strong>{{favorities.locationname}} {{favorities.country}}</strong></h3>
+                    </div>
+                    <div class="product-info text-center">
+                        <h3 class="name"><strong>{{favorities.description}}</strong></h3>
+                    </div>
+                    </div>
+                    <!-- </a> -->
+                </div>
     </div>
 	</div> 
 </div>

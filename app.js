@@ -117,7 +117,7 @@ app.post('/location',function(req,res){
     console.log('here is your result',result);
      
     var newlocation=new LocationData();
-    newlocation.locationid="3"
+    newlocation.locationid="1"
     newlocation.locationname=locName;
     newlocation.description=description;
     newlocation.zipCode=zipCode;

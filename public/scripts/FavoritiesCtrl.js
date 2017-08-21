@@ -11,6 +11,7 @@
 		      	$scope.favoritiesList = response;
 				 for(i = 0; i < $scope.favoritiesList.length; i++) {
 				 		$scope.userFavorities.push($scope.favoritiesList[i].locationid);
+				 		$window.sessionStorage.setItem('locationid',$scope.favoritiesList[i].locationid);
 				 	}
 			      $http.get('/getFavoritiesLocation/'+$scope.userFavorities).success(function(response) {
 		          $scope.favoritiesLocations = response; 	
@@ -39,7 +40,14 @@
 
 
 		    $scope.addFavoritiesDetails=function(){
-				$http.post('/addFavorities', $scope.addFavorities).success(function(response) {
+		    	$scope.locationid	=$window.sessionStorage.getItem('locationid');
+		    	var isFavorite = true;
+		    	// $scope.favoritiesData={"favouriteid":$scope.addFavorities.favouriteid,"userid":$scope.loginUserId,
+		    	// "locationid":$scope.locationid,"isFavorite":isFavorite};
+		    	$scope.favoritiesData={"userid":$scope.loginUserId,
+		    	"locationid":$scope.locationid,"isFavorite":isFavorite};
+
+				$http.post('/addFavorities', $scope.favoritiesData).success(function(response) {
 		      	$rootScope.addFavoritiesDetails = response;
 		     	alert("Added Successfully");
 		      	$location.path('/favorities');

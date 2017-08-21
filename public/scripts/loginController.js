@@ -6,7 +6,7 @@ myApplogin.controller('LoginCtrl', ['$scope', '$http','$location','$window','$ro
       $http.post('/login', $scope.login).success(function(response) {
       	$rootScope.loginData = response;
       	$window.sessionStorage.setItem('loginData',$rootScope.loginData);
-      	$window.sessionStorage.setItem('loginUserId',$rootScope.loginData.userid);
+      	$window.sessionStorage.setItem('loginUserId',$rootScope.loginData._id);
       	$location.path('/dashboard');
       });
     };
