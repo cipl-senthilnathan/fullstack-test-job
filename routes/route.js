@@ -83,27 +83,8 @@ exports.addFavoritiesData =function(req,res){
                   var userFavourite =new UserFavorities();
                   
                   userFavourite.locationid=req.body.locationid;;
-                  // userFavourite.favouriteid=req.body.favouriteid;;
-                  userFavourite.userid=req.body.userid; 
-
-                   var location =new Location();
-                 location.isfavorite=req.body.isFavorite;      
-                  console.log("isFavorite"+location.isfavorite);          
-
-                  Location.update({ locationid: { $eq: userFavourite.locationid } },
-                    { $set: { isfavorite: location.isfavorite}}).exec(function(err,record){
-                                 if(err){
-                                   console.log("Error Occured ");
-                                   res.status(404).send("Record Not Found");
-                                 }
-                                 else{
-                                       if(!record){
-                                         res.status(404).send("No location found with ticketId "+ticketId);
-                                         }                              
-                                          
-                                       }
-                                       });
-                 
+                  userFavourite.userid=req.body.userid;
+                  
                         userFavourite.save(function(err,savedUserFavorities){
                        if(err){
                           var message="Error occured while storing new savedUserFavorities !!!";
@@ -137,7 +118,7 @@ exports.addFavoritiesData =function(req,res){
               });  
  
           }
-  exports.getLocation=function(req,res){
+  exports.getLocationLatAndLong=function(req,res){
           var locationId=req.params.id;
           var userlatitude=req.params.lat;
           var userlongitude=req.params.long;
@@ -149,29 +130,37 @@ exports.addFavoritiesData =function(req,res){
             return;
           }else{
             var data=records;
-            if(userlatitude==null || userlatitude== undefined){
-              newData=data;
-            }
-            else
-            {
-              var result=getDistance(userlatitude,newData.latitude,userlongitude,newData.longitude);
+              var result=getDistance(userlatitude,data.latitude,userlongitude,data.longitude);
                       console.log("Result :::",result);
-                      newData.push({"locationname":newData.locationname,
-                                    "_id" :newData._id,
-                                    "imgurl" : newData.imgurl,
-                                    "longitude" :newData.longitude,
-                                    "latitude" : newData.latitude,
-                                    "address" : newData.address,
-                                    "country" : newData.country,
-                                    "city" : newData.city,
-                                    "description" :newData.description,
+                      newData={"locationname":data.locationname,
+                                    "_id" :data._id,
+                                    "imgurl" : data.imgurl,
+                                    "longitude" :data.longitude,
+                                    "latitude" : data.latitude,
+                                    "address" : data.address,
+                                    "country" : data.country,
+                                    "city" : data.city,
+                                    "description" :data.description,
                                     "distance" : result,
-                                    "locationid" : newData.locationid})
+                                    "locationid" : data.locationid}
                       console.log("newData :::",newData);
+               res.status(200).send(newData);
             }
-            res.status(200).send(newData);
-           
-          }
+
+          });    
+
+  }
+  exports.getLocation=function(req,res){
+          var locationId=req.params.id;
+          Location.findOne({"_id":locationId}, function(err, records){                            
+          if(err){
+            console.log(err);
+            res.status(500).send("Error Occured while fetching data location table");
+            return;
+          }else{
+            var data=records;  
+             res.status(200).send(data);
+            }
 
           });    
 

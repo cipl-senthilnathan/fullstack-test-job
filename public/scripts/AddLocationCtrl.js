@@ -2,7 +2,7 @@
 
   addLocation.controller('AddLocationCtrl', ['$scope', '$http','$location','$window','$timeout','$stateParams', function($scope, $http,$location,$window,$timeout,$stateParams) {   
   
-
+  		$scope.loginUserId	=$window.sessionStorage.getItem('loginUserId');
   		$scope.dataform={};
   		$scope.truefalse=false;
 				  
@@ -52,12 +52,23 @@
 			       $scope.country=$scope.data.country;
 			       $scope.city=$scope.data.city;
 			       $scope.address=$scope.data.address;
-			       $scope.isfavorite=$scope.data.isfavorite;
 
 		       });     
 		  
 		        
 		 }
+
+		  $scope.addFavoritiesDetails=function(locationId){
+
+		    	$scope.favoritiesData={"userid":$scope.loginUserId,
+		    	"locationid":locationId};
+
+				$http.post('/addFavorities', $scope.favoritiesData).success(function(response) {
+		      	$scope.addFavoritiesDetails = response;
+		     	alert("Added Successfully");
+		      	$location.path('/favorities');
+		      });
+		    }
 
 }]);
 addLocation.directive("fileInput",['$parse',function($parse){

@@ -49,7 +49,8 @@ app.get('/', function(req,res) {
 app.post('/login',routes.loginUser);
 app.get('/places',routes.getPlaces);
 app.get('/places/:lat/:long/:value',routes.getSortingPlaces);
-app.get('/location/:id/:lat/:long/',routes.getLocation);
+app.get('/location/:id/:lat/:long/',routes.getLocationLatAndLong);
+app.get('/location/:id/',routes.getLocation);
 app.get('/getFavorities/:loginUserId',routes.getFavoritiesDetails);
 app.get('/getFavoritiesLocation/:locationid',routes.getFavoritiesLocationDetails);
 app.delete('/deletefavorite/:favorite',routes.deleteFavoritiesDetails);
@@ -115,7 +116,6 @@ app.post('/location',function(req,res){
     var country=req.body.country;
     var zipCode=req.body.zipCode;
     var province=req.body.province;
-    var isfavorite=false;
     var latitude;
     var values=address+''+city+''+country+''+zipCode;
 
@@ -132,7 +132,6 @@ app.post('/location',function(req,res){
     newlocation.address=address;
     newlocation.latitude=result.lat;
     newlocation.longitude=result.lng;
-    newlocation.isfavorite=isfavorite;
     newlocation.imgurl='/' +locName+'/'+req.files[0].originalname;
     if(err) {
       return res.end("Error uploading file.");
@@ -159,7 +158,6 @@ app.post('/location',function(req,res){
     var zipCode=req.body.zipCode;
     var province=req.body.province;
     var address=req.body.address;
-    var isfavorite=req.body.isfavorite;
     var values=address+''+city+''+country+''+zipCode;
      var oid=new ObjectID(id);
     geocodeLoc(values, function(error, result){
@@ -174,7 +172,7 @@ app.post('/location',function(req,res){
     LocationData.update({ _id: { $eq: id }},
       { $set: { description: description,province:province,
                 address: address,city: city,country: country,imgurl: imgurl,zipcode: zipCode,
-                latitude:result.lat,longitude:result.lng,isfavorite:isfavorite}})
+                latitude:result.lat,longitude:result.lng}})
                 .exec(function(err,record){
                                 if(err){
                                    console.log("Error Occured ");
