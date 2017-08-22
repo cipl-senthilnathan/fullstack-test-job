@@ -115,6 +115,7 @@ app.post('/location',function(req,res){
     var country=req.body.country;
     var zipCode=req.body.zipCode;
     var province=req.body.province;
+    var isfavorite=false;
     var latitude;
     var values=address+''+city+''+country+''+zipCode;
 
@@ -131,6 +132,7 @@ app.post('/location',function(req,res){
     newlocation.address=address;
     newlocation.latitude=result.lat;
     newlocation.longitude=result.lng;
+    newlocation.isfavorite=isfavorite;
     newlocation.imgurl='/' +locName+'/'+req.files[0].originalname;
     if(err) {
       return res.end("Error uploading file.");
@@ -157,6 +159,7 @@ app.post('/location',function(req,res){
     var zipCode=req.body.zipCode;
     var province=req.body.province;
     var address=req.body.address;
+    var isfavorite=req.body.isfavorite;
     var values=address+''+city+''+country+''+zipCode;
      var oid=new ObjectID(id);
     geocodeLoc(values, function(error, result){
@@ -168,7 +171,11 @@ app.post('/location',function(req,res){
       return res.end("Error uploading file.");
       res.redirect("/#/addlocation/");
     }
-    LocationData.update({ _id: { $eq: id }},{ $set: { description: description,province:province,address: address,city: city,country: country,imgurl: imgurl,zipcode: zipCode,latitude:result.lat,longitude:result.lng}}).exec(function(err,record){
+    LocationData.update({ _id: { $eq: id }},
+      { $set: { description: description,province:province,
+                address: address,city: city,country: country,imgurl: imgurl,zipcode: zipCode,
+                latitude:result.lat,longitude:result.lng,isfavorite:isfavorite}})
+                .exec(function(err,record){
                                 if(err){
                                    console.log("Error Occured ");
                                    res.status(404).send("Record Not Found");

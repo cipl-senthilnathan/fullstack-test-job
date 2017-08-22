@@ -52,6 +52,7 @@
 			       $scope.country=$scope.data.country;
 			       $scope.city=$scope.data.city;
 			       $scope.address=$scope.data.address;
+			       $scope.isfavorite=$scope.data.isfavorite;
 
 		       });     
 		  

@@ -62,7 +62,7 @@ exports.getFavoritiesLocationDetails=function(req,res){
         var userFavoritiesArr = location.split(",").map(function (val) {
               return val;
             });
-   Location.find({locationid: {$in:userFavoritiesArr}}, function(err, records){
+   Location.find({_id: {$in:userFavoritiesArr}}, function(err, records){
                            
                                       if(err){
                                         console.log(err);

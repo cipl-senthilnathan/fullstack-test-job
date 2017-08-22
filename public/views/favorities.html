@@ -50,8 +50,10 @@
         </table> -->
         <div class="col-md-3" ng-repeat="favorities in favoritiesLocations">
                 <div class="product">
+                {{favorities.isfavorite}}
 <!--                 <button class="btn btn-icon1"><span class="glyphicon glyphicon-heart" ></span></button>
  -->              <div ng-if="!favorities.isfavorite">
+
                  <button type="button"  class="btn btn-icon1" >
                  <span>
                  <!--  <a ui-sref="app.addfavorities"> -->
@@ -71,7 +73,7 @@
                   <div> 
                  <button type="button"  class="btn btn-icon1" >
                  <span >
-                  <a href="" ng-click="deleteFavorities(favorities.locationid)"><img src="images/delete.png"></a>
+                  <a href="" ng-click="deleteFavorities(favorities._id)"><img src="images/delete.png"></a>
                   </span>
                   </button>
                   </div>

@@ -3,10 +3,11 @@ var mongoose = require( 'mongoose' ),
  Schema = mongoose.Schema,
     bcrypt = require('bcryptjs'),
     SALT_WORK_FACTOR = 10;
+ // var autoIncrement = require('mongodb-autoincrement');
 
 var dbURI = 'mongodb://localhost/fullstack-test-job';
 
-
+//autoIncrement.initialize(dbURI);
 // var dbURI =  'mongodb://mongodbadmin:mongodbadmin@ds023465.mlab.com:23465/cipl-case-study-db';
 
 
@@ -49,11 +50,14 @@ var locationSchema = new mongoose.Schema({
 mongoose.model( 'location', locationSchema );
 
 var userFavourite = new mongoose.Schema({
+ 
   userid:{ type: String },
   locationid: { type: String },
   createdAt:{type:Date}
 
-}); 
+},{_id: true}); 
+
+// userFavourite.plugin(autoIncrement.mongoosePlugin);
 mongoose.model( 'userFavourite', userFavourite );
 
 
