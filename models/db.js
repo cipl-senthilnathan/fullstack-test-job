@@ -49,9 +49,9 @@ var locationSchema = new mongoose.Schema({
 mongoose.model( 'location', locationSchema );
 
 var userFavourite = new mongoose.Schema({
-  // favouriteid: {type: String, required: true, index: { unique: true }},
   userid:{ type: String },
-  locationid: { type: String }
+  locationid: { type: String },
+  createdAt:{type:Date}
 
 }); 
 mongoose.model( 'userFavourite', userFavourite );
