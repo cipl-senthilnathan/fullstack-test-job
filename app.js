@@ -49,7 +49,7 @@ app.get('/', function(req,res) {
 app.post('/login',routes.loginUser);
 app.get('/places',routes.getPlaces);
 app.get('/places/:lat/:long/:value',routes.getSortingPlaces);
-app.get('/location/:id',routes.getLocation);
+app.get('/location/:id/:lat/:long/',routes.getLocation);
 app.get('/getFavorities/:loginUserId',routes.getFavoritiesDetails);
 app.get('/getFavoritiesLocation/:locationid',routes.getFavoritiesLocationDetails);
 app.delete('/deletefavorite/:favorite',routes.deleteFavoritiesDetails);
@@ -149,8 +149,8 @@ app.post('/location',function(req,res){
   }
   else{
     console.log("location id:",id);
-     var newlocation=new LocationData();
     var description=req.body.description;
+    var locName=req.body.locationname;
     var address=req.body.address;
     var city=req.body.city;
     var country=req.body.country;
@@ -168,8 +168,7 @@ app.post('/location',function(req,res){
       return res.end("Error uploading file.");
       res.redirect("/#/addlocation/");
     }
-    console.log("*****Before Update****",id);
-    newlocation.update({ _id:  oid },{ $set: { description: description,province:province,address: address,city: city,country: country,imgurl: imgurl,zipcode: zipCode,latitude:result.lat,longitude:result.lng}}).exec(function(err,record){
+    LocationData.update({ _id: { $eq: id }},{ $set: { description: description,province:province,address: address,city: city,country: country,imgurl: imgurl,zipcode: zipCode,latitude:result.lat,longitude:result.lng}}).exec(function(err,record){
                                 if(err){
                                    console.log("Error Occured ");
                                    res.status(404).send("Record Not Found");
@@ -180,6 +179,7 @@ app.post('/location',function(req,res){
                                          }                              
                                           else{
                                                  // res.status(200).send();
+                                                 console.log("updated successfully");
                                                   res.redirect("/#/dashboard");
                                               }
                                        }

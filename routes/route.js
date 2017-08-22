@@ -139,6 +139,9 @@ exports.addFavoritiesData =function(req,res){
           }
   exports.getLocation=function(req,res){
           var locationId=req.params.id;
+          var userlatitude=req.params.lat;
+          var userlongitude=req.params.long;
+          var newData;
           Location.findOne({"_id":locationId}, function(err, records){                            
           if(err){
             console.log(err);
@@ -146,13 +149,34 @@ exports.addFavoritiesData =function(req,res){
             return;
           }else{
             var data=records;
-            console.log("Successfully")
-            res.status(200).send(data);
+            if(userlatitude==null || userlatitude== undefined){
+              newData=data;
+            }
+            else
+            {
+              var result=getDistance(userlatitude,newData.latitude,userlongitude,newData.longitude);
+                      console.log("Result :::",result);
+                      newData.push({"locationname":newData.locationname,
+                                    "_id" :newData._id,
+                                    "imgurl" : newData.imgurl,
+                                    "longitude" :newData.longitude,
+                                    "latitude" : newData.latitude,
+                                    "address" : newData.address,
+                                    "country" : newData.country,
+                                    "city" : newData.city,
+                                    "description" :newData.description,
+                                    "distance" : result,
+                                    "locationid" : newData.locationid})
+                      console.log("newData :::",newData);
+            }
+            res.status(200).send(newData);
+           
           }
 
           });    
 
   }
+
 
   exports.getPlaces=function(req,res){
 

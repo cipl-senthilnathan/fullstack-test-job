@@ -4,7 +4,8 @@ angular.module('myCaseStudyApp', ['ui.router',
       'myApp.login',
       'myApp.dashboard',
       'myApp.addLocation',
-      'myApp.FavoritiesCtrl'
+      'myApp.FavoritiesCtrl',
+      'myApp.LocationInfoCtrl'
 
     ])
 
@@ -128,16 +129,16 @@ angular.module('myCaseStudyApp', ['ui.router',
                     }
                 }
             })
-         .state('app.uploadedit', {
-                url:'upload/:id',
+         .state('app.locationDeatils', {
+                url:'locationInfo/:id',
                 views: {
 
                         'header@': {
-                        templateUrl : 'views/upload_header.html'
+                        templateUrl : 'views/dashboard_header.html'
                     },
                        'content@': {
-                        templateUrl : 'views/upload_case_studies.html',
-                        controller  : 'UploadCtrl'
+                        templateUrl : 'views/locationInfo.html',
+                        controller  : 'LocationInfoCtrl'
                      },
                         'footer@': {
                         templateUrl : ''
