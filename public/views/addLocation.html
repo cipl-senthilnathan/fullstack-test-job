@@ -2,16 +2,17 @@
 <div class="form-row">
 	<div class="col-xs-6 col-sm-6 offset">
 			<form class="form-horizontal" id="uploadForm" name="usercaseform" enctype="multipart/form-data" action="/location" method="post">
+				<input class="form-controls" type="id" name="id" ng-model="locationid" ng-hide="true"  placeholder="id" />
 			    <div class="form-group">
 			      <label class="control-label col-sm-4" for="locationName">Location Name</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="email" placeholder="Enter location name" name="locationname" ng-model="addLocation.locationname" required>
+			      		<input type="text" class="form-control" id="email" placeholder="Enter location name" name="locationname" ng-model="locationname" ng-readonly="truefalse" required>
 			      	</div>
 			    </div>
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="description">Description</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="description" placeholder="Enter description" name="description" ng-model="addLocation.description" required>
+			      		<input type="text" class="form-control" id="description" placeholder="Enter description" name="description" ng-model="description" required>
 			      	</div>
 			    </div>
 			     <!-- <div class="form-group">
@@ -29,31 +30,31 @@
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="zipCode">ZipCode</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="zipCode" placeholder="Enter zip code" name="zipCode" ng-model="addLocation.zipCode" required>
+			      		<input type="text" class="form-control" id="zipCode" placeholder="Enter zip code" name="zipCode" ng-model="zipCode" required>
 			      	</div>
 			    </div>
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="province">Province</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="province" placeholder="Enter province" name="province" ng-model="addLocation.province" required>
+			      		<input type="text" class="form-control" id="province" placeholder="Enter province" name="province" ng-model="province" required>
 			      	</div>
 			    </div>
 			    <div class="form-group">
 			      <label class="control-label col-sm-4" for="country">Country</label>
 			       	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="country" placeholder="Enter country" name="country" ng-model="addLocation.country" required>
+			      		<input type="text" class="form-control" id="country" placeholder="Enter country" name="country" ng-model="country" required>
 			      	</div>
 			    </div>
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="city">City</label>
 			       	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="city" placeholder="Enter city" name="city" ng-model="addLocation.city" required>
+			      		<input type="text" class="form-control" id="city" placeholder="Enter city" name="city" ng-model="city" required>
 			      	</div>
 			    </div>
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="address">Address</label>
 			       	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="address" placeholder="Enter address" name="address" ng-model="addLocation.address" required>
+			      		<input type="text" class="form-control" id="address" placeholder="Enter address" name="address" ng-model="address" required>
 			      	</div>
 			    </div>
 			    <div class="col-sm-offset-6 col-sm-8">			    

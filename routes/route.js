@@ -137,6 +137,22 @@ exports.addFavoritiesData =function(req,res){
               });  
  
           }
+  exports.getLocation=function(req,res){
+          var locationId=req.params.id;
+          Location.findOne({"_id":locationId}, function(err, records){                            
+          if(err){
+            console.log(err);
+            res.status(500).send("Error Occured while fetching data location table");
+            return;
+          }else{
+            var data=records;
+            console.log("Successfully")
+            res.status(200).send(data);
+          }
+
+          });    
+
+  }
 
   exports.getPlaces=function(req,res){
 

@@ -1,10 +1,10 @@
  var addLocation = angular.module('myApp.addLocation', ['ui.bootstrap']);
 
-  addLocation.controller('AddLocationCtrl', ['$scope', '$http','$location','$window','$timeout', function($scope, $http,$location,$window,$timeout) {   
+  addLocation.controller('AddLocationCtrl', ['$scope', '$http','$location','$window','$timeout','$stateParams', function($scope, $http,$location,$window,$timeout,$stateParams) {   
   
 
   		$scope.dataform={};
-
+  		$scope.truefalse=false;
 				  
 				    $scope.thumbnail = {
 				       // dataUrl: 'adsfas'
@@ -27,13 +27,36 @@
 				    }
 				}	 
 
-			$scope.addLocationDetails=function(){
+			/*$scope.addLocationDetails=function(){
 				$http.post('/addLocation', $scope.addLocation).success(function(response) {
 		      	$rootScope.addLocationDetails = response;
 		    //  	sessionStorage.setItem("loginPerson",$rootScope.addLocationDetails);
 		      	$location.path('/addlocation');
 		      });
-		    };
+		    };*/
+		    if($stateParams.id!=undefined)
+			{
+				$scope.truefalse=true;
+      
+		       var id1=$stateParams.id;
+		       console.log("ID:::"+id1);
+		       $http.get('/location/'+id1).success(function(response) {
+			       $scope.data=response;
+			       console.log("DATA:::"+JSON.stringify($scope.data));
+			       $scope.locationid=$scope.data._id;
+			       $scope.locationname = $scope.data.locationname;
+			       $scope.description = $scope.data.description;
+			       $scope.imagefile=$scope.data.imgurl;
+			       $scope.zipCode=$scope.data.zipcode;
+			       $scope.province=$scope.data.province;
+			       $scope.country=$scope.data.country;
+			       $scope.city=$scope.data.city;
+			       $scope.address=$scope.data.address;
+
+		       });     
+		  
+		        
+		 }
 
 }]);
 addLocation.directive("fileInput",['$parse',function($parse){

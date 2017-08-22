@@ -25,7 +25,6 @@ mongoose.connection.on('disconnected', function () {
 });
 
 var userloginSchema = new mongoose.Schema({
-  userid:{type: String, required: true, index: { unique: true }},
   username: {type: String, required: true, index: { unique: true }},
   password: {type: String}
 }); 
@@ -33,12 +32,12 @@ var userloginSchema = new mongoose.Schema({
 mongoose.model( 'login', userloginSchema );
 
 var locationSchema = new mongoose.Schema({
-    locationid:{type: String, required: true, index: { unique: true }},
     locationname:{type: String, required: true, index: { unique: true }},
     latitude:{ type: String },
     longitude: { type: String },    
     description: { type: String },
     imgurl: { type: String },
+    province: { type: String },
     zipcode: { type: String },
     country: { type: String },
     city: { type: String },

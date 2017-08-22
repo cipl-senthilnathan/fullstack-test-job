@@ -14,6 +14,7 @@ var mongoose = require( 'mongoose' );
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 var LocationData = mongoose.model( 'location' );
+var ObjectID = require('mongodb').ObjectID;
 //google map api
 var NodeGeocoder = require('node-geocoder');
 
@@ -48,6 +49,7 @@ app.get('/', function(req,res) {
 app.post('/login',routes.loginUser);
 app.get('/places',routes.getPlaces);
 app.get('/places/:lat/:long/:value',routes.getSortingPlaces);
+app.get('/location/:id',routes.getLocation);
 app.get('/getFavorities/:loginUserId',routes.getFavoritiesDetails);
 app.get('/getFavoritiesLocation/:locationid',routes.getFavoritiesLocationDetails);
 app.delete('/deletefavorite/:favorite',routes.deleteFavoritiesDetails);
@@ -102,14 +104,17 @@ app.post('/location',function(req,res){
   upload(req,res,function(err) {
    console.log("id in upload::",req.body.locationname);
    console.log("id in file::",req.files);
-
-   var locationid="2";
+  var id=req.body.id;
+  //console.log("id in upload::"+req.body.id);
+  if(id=="undefined" || id==null || id=='')
+  { 
     var locName=req.body.locationname;
     var description=req.body.description;
     var address=req.body.address;
     var city=req.body.city;
     var country=req.body.country;
     var zipCode=req.body.zipCode;
+    var province=req.body.province;
     var latitude;
     var values=address+''+city+''+country+''+zipCode;
 
@@ -117,11 +122,11 @@ app.post('/location',function(req,res){
     console.log('here is your result',result);
      
     var newlocation=new LocationData();
-    newlocation.locationid="1"
     newlocation.locationname=locName;
     newlocation.description=description;
-    newlocation.zipCode=zipCode;
+    newlocation.zipcode=zipCode;
     newlocation.city=city;
+    newlocation.province=province;
     newlocation.country=country;
     newlocation.address=address;
     newlocation.latitude=result.lat;
@@ -140,7 +145,50 @@ app.post('/location',function(req,res){
         res.status(200).send("location added successfully");
         }
     });
-    });    
+    });  
+  }
+  else{
+    console.log("location id:",id);
+     var newlocation=new LocationData();
+    var description=req.body.description;
+    var address=req.body.address;
+    var city=req.body.city;
+    var country=req.body.country;
+    var zipCode=req.body.zipCode;
+    var province=req.body.province;
+    var address=req.body.address;
+    var values=address+''+city+''+country+''+zipCode;
+     var oid=new ObjectID(id);
+    geocodeLoc(values, function(error, result){
+    console.log('here is your result',result);
+     
+    var oid=new ObjectID(id);
+    var imgurl='/' +locName+'/'+req.files[0].originalname;
+    if(err) {
+      return res.end("Error uploading file.");
+      res.redirect("/#/addlocation/");
+    }
+    console.log("*****Before Update****",id);
+    newlocation.update({ _id:  oid },{ $set: { description: description,province:province,address: address,city: city,country: country,imgurl: imgurl,zipcode: zipCode,latitude:result.lat,longitude:result.lng}}).exec(function(err,record){
+                                if(err){
+                                   console.log("Error Occured ");
+                                   res.status(404).send("Record Not Found");
+                                 }
+                                 else{
+                                       if(!record){
+                                         res.status(404).send("No Employee found with ticketId ");
+                                         }                              
+                                          else{
+                                                 // res.status(200).send();
+                                                  res.redirect("/#/dashboard");
+                                              }
+                                       }
+                                  
+
+    });
+    });  
+
+  }  
 
   });
 
@@ -161,10 +209,3 @@ var geocodeLoc = function(location, callback)
         }
     });
 }
-
-
-
-
-
-
-

@@ -1,5 +1,6 @@
 
 <div class="container" ng-controller="AddLocationCtrl" data-ng-app="myApp" ng-init="getPlaces()">
+	<div class="col-xs-10">
 	<div class="col-xs-2 input-block">
         <div class="frm-tx2 col-xs-12">
             <select class="form-control" name="MerchantName" ng-model="sortValue" ng-change="changeSort(sortValue)" required>
@@ -9,9 +10,12 @@
                 </select>
         </div>
     </div>
-	<div class="col-xs-2">
- 			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addlocation">Add Location</button>
-			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.favorities">Favorities</button>
+	<div class="col-sm-2">
+ 			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addlocation">Add Location</button>	
+ 	</div>
+ 	<div class="col-xs-2">
+ 	<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.favorities">Favorities</button>
+ 	</div>
  	</div>
  	<!-- <div class="container technologies clearfix">
  		<div class="col-xs-12">
@@ -61,7 +65,7 @@
         	<div class="col-md-3" ng-repeat="location in locationList">
         		<div class="product">
         		<button class="btn btn-icon1"><span class="glyphicon glyphicon-heart" ></span></button>
-        		 <button type="button"  class="btn btn-icon1" ng-click="serverFiles()">
+        		 <button type="button"  class="btn btn-icon1" ui-sref="app.updateLocation({id: location._id})">
          		 <span class="glyphicon glyphicon-pencil"></span></button>
                <!--  <a ui-sref="adminApp.systemadmin.systemadministrator"> -->
                     <div class="product-image">

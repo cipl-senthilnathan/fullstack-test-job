@@ -112,6 +112,22 @@ angular.module('myCaseStudyApp', ['ui.router',
                     }
                 }
             })
+         .state('app.updateLocation', {
+                url:'location/:id',
+                views: {
+
+                        'header@': {
+                        templateUrl : 'views/dashboard_header.html'
+                    },
+                       'content@': {
+                        templateUrl : 'views/addLocation.html',
+                        controller  : 'AddLocationCtrl'
+                     },
+                        'footer@': {
+                        templateUrl : ''
+                    }
+                }
+            })
          .state('app.uploadedit', {
                 url:'upload/:id',
                 views: {

@@ -33,8 +33,6 @@
         else{
           $scope.getPlaces();
         }
-
-       
       };
 
 }]);
