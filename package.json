@@ -17,10 +17,11 @@
     "forever": "^0.15.2",
     "mkdirp": "^0.5.1",
     "mocha": "~2.3.3",
+    "mongodb-autoincrement": "^1.0.1",
     "mongoose": "4.4.4",
     "multer": "1.1.0",
+    "node-geocoder": "^3.19.0",
     "should": "~7.1.0",
-	"node-geocoder": "^3.19.0",
     "supertest": "~1.1.0"
   }
 }
