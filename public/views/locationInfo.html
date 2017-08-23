@@ -1,21 +1,7 @@
 
 <div class="container" ng-controller="LocationInfoCtrl" data-ng-app="myApp">
 	<div class="col-xs-10">
-	<!-- <div class="col-xs-2 input-block">
-        <div class="frm-tx2 col-xs-12">
-            <select class="form-control" name="MerchantName" ng-model="sortValue" ng-change="changeSort(sortValue)" required>
-                    <option value="name" ng-selected="true">Sort By Name</option>
-                    <option value="min">Min</option>
-                    <option value="max">Max</option>
-                </select>
-        </div>
-    </div>
-	<div class="col-sm-2">
- 			<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addlocation">Add Location</button>	
- 	</div>
- 	<div class="col-xs-2">
- 	<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.favorities">Favorities</button>
- 	</div> -->
+	
  	</div>
  	<!-- <div class="container technologies clearfix">
  		<div class="col-xs-12">
@@ -57,18 +43,58 @@
     			</div>	
     	</div>
     </div> -->
-    <div class="col-xs-12 no-padding">
+    <div class="col-xs-12 no-padding" ng-init="getLocationInfo()">
     	<div class="col-xs-12 dashboard-content-pad dashboard-content-pad-scroll">
             <div class="dashboard-content-heading" style="border: none;">
+             <div class="col-xs-10" style="padding-bottom:10px;">
+                <div class="col-xs-4">
                 <h2 style="font-size: 20px;"><span class="content-icon-tab"></span><strong>Location Info</strong></h2>
+                </div>
+                <div class="col-xs-2" style="position: absolute;right: 0;">
+                  <button type="button"  class="btn btn-icon" ui-sref="app.dashboard">
+                 <span ><img src="images/back.png"></span></button>
+                  </div>
+            </div>
             </div>
             <div class="col-xs-12">
+            	 <div class="col-xs-6">
+            	 	<div class="col-xs-4">
+            	 		<Strong>Loaction Name:</Strong>
+            	 	</div>
+            	 	<div>{{locationInfo.locationname}}</div>
+            	 	<div class="col-xs-4">
+            	 		<Strong>Loaction Description:</Strong>
+            	 	</div>
+            	 	<div>{{locationInfo.description}}</div>
+            	 	<div class="col-xs-4">
+            	 		<Strong>Address:</Strong>
+            	 	</div>
+            	 	<div>{{locationInfo.address}}</div>
+            	 	<div class="col-xs-4">
+            	 		<Strong>City:</Strong>
+            	 	</div>
+            	 	<div>{{locationInfo.city}}</div>
+            	 	<div class="col-xs-4">
+            	 		<Strong>Country:</Strong>
+            	 	</div>
+            	 	<div>{{locationInfo.country}}</div>
+            	 	<div class="col-xs-4">
+            	 		<Strong>Zipcode:</Strong>
+            	 	</div>
+            	 	<div>{{locationInfo.zipcode}}</div>
+            	 	<div class="col-xs-4">
+            	 		<Strong>Distance:</Strong>
+            	 	</div>
+            	 	<div>{{locationInfo.distance}}</div>
+
+
+            	 </div>
                 <div class="col-xs-6">
                     <google-map control="map.control" center="map.center" zoom="map.zoom">
                       <marker coords="marker.center"></marker>
                     </google-map>
                 </div>
-                <div class="col-xs-6"></div>
+               
             </div>
         	
     	</div>

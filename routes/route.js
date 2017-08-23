@@ -123,6 +123,7 @@ exports.addFavoritiesData =function(req,res){
           var userlatitude=req.params.lat;
           var userlongitude=req.params.long;
           var newData;
+          console.log("lat && long",userlatitude,userlongitude)
           Location.findOne({"_id":locationId}, function(err, records){                            
           if(err){
             console.log(err);
@@ -142,7 +143,9 @@ exports.addFavoritiesData =function(req,res){
                                     "city" : data.city,
                                     "description" :data.description,
                                     "distance" : result,
-                                    "locationid" : data.locationid}
+                                    "zipcode":data.zipcode,
+                                    "province":data.province
+                                    }
                       console.log("newData :::",newData);
                res.status(200).send(newData);
             }
@@ -209,6 +212,8 @@ exports.addFavoritiesData =function(req,res){
                                     "address" : data[i].address,
                                     "country" : data[i].country,
                                     "city" : data[i].city,
+                                    "zipcode":data[i].zipcode,
+                                    "province":data[i].province,
                                     "description" :data[i].description,
                                     "distance" : result,
                                     "locationid" : data[i].locationid})

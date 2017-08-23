@@ -17,58 +17,20 @@
  	<button type="button" class="btn btn-primary" name="Add location" ui-sref="app.favorities">Favorities</button>
  	</div>
  	</div>
- 	<!-- <div class="container technologies clearfix">
- 		<div class="col-xs-12">
- 		
- 		</div>
-		<div class="new">
-			<div class="texh_row clearfix">
-				<div class="rows" class="grid-container">	
-					<ul class="rig columns-3">
-		                <li class="media" >
-		                  <div align="center" class="list_technologies" align="center" >
-						    <img  class="tech_images" alt={{dashboard.title}} /> 
-						    <a href="uploads">
-						    <h5 class="tech_name"><img class="tool_top_images" src="images/tool-tip.png" /></h5>
-					      </div>     
-		                </li>
-		            </ul>
-		            
-				</div>
-			</div>
-		</div>
-	</div>  -->
-	<!-- <div class="col-xs-12 no-padding">
-    	<div class="col-xs-12 dashboard-content-pad dashboard-content-pad-scroll">
-            <div class="dashboard-content-heading" style="border: none;">
-                <h2 style="font-size: 20px;"><span class="content-icon-tab"></span><strong>Location List</strong></h2>
-            </div>
-        		<div class="col-md-3" ng-repeat="location in locationList">
-	        		<div class="product">
-	                <a ui-sref="">
-	                    <div class="product-image">
-	                        <img ng-src="uploads/{{location.imgurl}}" alt="">
-	                    </div>
-	                    <div class="product-info text-center">
-	                        <h3 class="name"><strong>{{location.locationname}}</strong></h3>
-	                    </div>
-	                </a>
-	                </div>     
-    			</div>	
-    	</div>
-    </div> -->
     <div class="col-xs-12 no-padding">
     	<div class="col-xs-12 dashboard-content-pad dashboard-content-pad-scroll">
-            <div class="dashboard-content-heading" style="border: none;">
+            <div class="dashboard-content-heading" style="border: none;padding-bottom:10px;">
                 <h2 style="font-size: 20px;"><span class="content-icon-tab"></span><strong>Location List</strong></h2>
             </div>
         	<div class="col-md-3" ng-repeat="location in locationList">
         		<div class="product">
-        		<button class="btn btn-primary" ng-click="addFavoritiesDetails(location._id)"> Add to Favorite
-                <!-- <span class="glyphicon glyphicon-heart" ></span> -->
+                <div style="/* left: 10px; */padding-left: 10px;">
+        		<button class="btn btn-icon " ng-click="addFavoritiesDetails(location._id)"> 
+                 <span><img src="images/favorite-add1.png"></span> 
                 </button>
-        		 <button type="button"  class="btn btn-icon1" ui-sref="app.updateLocation({id: location._id})">
-         		 <span class="glyphicon glyphicon-pencil"></span></button>
+        		 <button type="button"  class="btn btn-icon" ui-sref="app.updateLocation({id: location._id})">
+         		 <span ><img src="images/pencil.png"></span></button>
+                 </div>
                 <a ui-sref="app.locationDeatils({id: location._id})">
                     <div class="product-image">
 
@@ -83,6 +45,7 @@
     			</div>
     		</div>
     	</div>
+</div>
 </div>
 
 

@@ -10,9 +10,9 @@
         $scope.latitude=location.coords.latitude;
         $scope.longitude=location.coords.longitude;
         $scope.accuracy=location.coords.accuracy;
-      console.log(location.coords.latitude);
+/*      console.log(location.coords.latitude);
       console.log(location.coords.longitude);
-      console.log(location.coords.accuracy);
+      console.log(location.coords.accuracy);*/
     });
 
       $scope.getPlaces = function() {
