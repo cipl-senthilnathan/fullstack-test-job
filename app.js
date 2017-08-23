@@ -142,7 +142,8 @@ app.post('/location',function(req,res){
         console.log(message+"\n"+err);
         res.status(500).send(message);
       }else{
-        res.status(200).send("location added successfully");
+      //  res.status(200).send("location added successfully");
+       res.redirect("/#/dashboard");
         }
     });
     });  

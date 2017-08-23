@@ -1,6 +1,6 @@
  var addLocation = angular.module('myApp.addLocation', ['ui.bootstrap']);
 
-  addLocation.controller('AddLocationCtrl', ['$scope', '$http','$location','$window','$timeout','$stateParams', function($scope, $http,$location,$window,$timeout,$stateParams) {   
+  addLocation.controller('AddLocationCtrl', ['$scope', '$http','$location','$window','$timeout','$stateParams','$state', function($scope, $http,$location,$window,$timeout,$stateParams,$state) {   
   
   		$scope.loginUserId	=$window.sessionStorage.getItem('loginUserId');
   		$scope.dataform={};
@@ -65,8 +65,13 @@
 
 				$http.post('/places/favorite', $scope.favoritiesData).success(function(response) {
 		      	$scope.addFavoritiesDetails = response;
-		     	alert("Added Successfully");
-		     	$state.reload();
+		      	$scope.responseMessage=response;
+		    	$scope.successMessage=true;
+		    	$timeout(function () { 
+						    $scope.successMessage=false;						
+							$state.reload();
+						}, 5000);
+		      
 		      });
 		    }
 

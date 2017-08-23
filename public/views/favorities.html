@@ -1,48 +1,18 @@
 
 <div class="container" ng-controller="FavoritiesCtrl" data-ng-app="myApp">
-<!-- <div class="col-xs-2"> -->
- 		<!-- <button type="button" class="btn btn-primary" name="Add location" ui-sref="app.addfavorities">Add Favorities</button>
- 		</div>
- -->
-
- <!-- <div class="container technologies clearfix">
- 		<div class="col-xs-12">
- 		
- 		</div>
-		<div class="col-xs-12" ng-init="getFavoritiesList()">
-        <div><label style="margin-left: 25px;font-size: large;">Favorities List</label>
-                </div>
-        <div class="col-md-3" ng-repeat="favorities in favoritiesLocations">
-                <div class="product">
-                 <button type="button"  class="btn btn-icon1" >
-                 <span >
-                  <a href="" ng-click="deleteFavorities(favorities._id)"><img src="images/delete.png"></a>
-                  </span>
-                  </button>
-                  </div>
-
-                    <div class="product-image">
-
-                        <img ng-src="uploads{{favorities.imgurl}}" alt="">
-                    </div>
-                    <div class="product-info text-center">
-                        <h3 class="name"><strong>{{favorities.locationname}} {{favorities.country}}</strong></h3>
-                    </div>
-                    <div class="product-info text-center">
-                        <h3 class="name"><strong>{{favorities.description}}</strong></h3>
-                    </div>
-                    </div>
-                     </a> 
-                </div>
-    </div>
-	</div>  -->
     <div class="col-xs-12 dashboard-content-pad dashboard-content-pad-scroll" ng-init="getFavoritiesList()">
             <div class="dashboard-content-heading" style="border: none;padding-bottom:10px;">
             <div class="col-xs-10" style="padding-bottom:10px;">
                 <div class="col-xs-4">
                 <h2 style="font-size: 20px;"><span class="content-icon-tab"></span><strong>Favorite Location List</strong></h2>
                 </div>
+                <div class="alert alert-success alretBox" ng-show="successMessage" role="alert" style="margin-top:49px;margin-bottom: 10px;margin-left: 32px;margin-right: 6px;width: 500px">
+                                    
+                                          {{responseMessage}}
+                </div>
+
                 <div class="col-xs-2" style="position: absolute;right: 0;">
+
                 <!-- <button type="button"  class="btn btn-icon" >
                  <span >
                   <a href="" ng-click="deleteFavorities(favorities._id)"><img src="images/delete.png"></a>

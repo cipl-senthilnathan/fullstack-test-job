@@ -30,11 +30,16 @@
 		      $scope.deleteFavorities=function(favorite){
 				 // var sortUrl='/places/'+$scope.latitude+'/'+$scope.longitude+'/'+obj;
 				$http.delete('/places/favorite/'+favorite).success(function(response) {
-		      	$scope.placesList = response;
-		      	alert("Deleted Successfully");
-		      	$state.reload();
-		      	$scope.getFavoritiesList();
-		      	$location.path('/favorities');
+		    //  	$scope.placesList = response;
+		    	$scope.responseMessage=response;
+		    	$scope.successMessage=true;
+		    	$timeout(function () { 
+						    $scope.successMessage=false;						
+							$state.reload();
+		      				$scope.getFavoritiesList();
+		      	            $location.path('/favorities');
+						}, 3000);
+		      
 		      });
 		    };
 

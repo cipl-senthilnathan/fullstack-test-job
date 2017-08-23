@@ -12,7 +12,7 @@ var UserFavorities = mongoose.model( 'userFavourite' );
 
                     // fetch user and test password verification
               Userlogin.findOne({ username: user_name }, function(err, user) {
-              if (err) throw err;
+            //  if (err) throw err;
                  var data=user;
                   if(data!=null){
                    if(user_name == data.username & pass_code == data.password){
@@ -91,7 +91,9 @@ exports.addFavoritiesData =function(req,res){
                           console.log(message+"\n"+err);
                           res.status(500).send(message);
                         }else{
-                         res.status(201).send(savedUserFavorities);
+                          var message="Added Successfully"
+                        console.log("Added Successfully");
+                         res.status(201).send(message);
                           }
                  });
 
