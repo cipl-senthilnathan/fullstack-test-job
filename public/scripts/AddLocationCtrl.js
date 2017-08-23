@@ -63,10 +63,10 @@
 		    	$scope.favoritiesData={"userid":$scope.loginUserId,
 		    	"locationid":locationId};
 
-				$http.post('/addFavorities', $scope.favoritiesData).success(function(response) {
+				$http.post('/places/favorite', $scope.favoritiesData).success(function(response) {
 		      	$scope.addFavoritiesDetails = response;
 		     	alert("Added Successfully");
-		      	$location.path('/favorities');
+		     	$state.reload();
 		      });
 		    }
 

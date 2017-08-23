@@ -7,7 +7,7 @@
  			$scope.userFavoritieLocations=[];
 
 			$scope.getFavoritiesList=function(){
-				$http.get('/getFavorities/'+$scope.loginUserId).success(function(response) {
+				$http.get('/places/favorites/'+$scope.loginUserId).success(function(response) {
 		      	$scope.favoritiesList = response;
 				 for(i = 0; i < $scope.favoritiesList.length; i++) {
 				 		$scope.userFavorities.push($scope.favoritiesList[i].locationid);
@@ -30,7 +30,7 @@
 
 		      $scope.deleteFavorities=function(favorite){
 				 // var sortUrl='/places/'+$scope.latitude+'/'+$scope.longitude+'/'+obj;
-				$http.delete('/deletefavorite/'+favorite).success(function(response) {
+				$http.delete('/places/favorite/'+favorite).success(function(response) {
 		      	$scope.placesList = response;
 		      	alert("Deleted Successfully");
 		      	$location.path('/favorities');

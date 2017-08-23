@@ -45,16 +45,15 @@ app.get('/', function(req,res) {
   res.sendFile('public/index.html');
 });
 
-
 app.post('/login',routes.loginUser);
 app.get('/places',routes.getPlaces);
 app.get('/places/:lat/:long/:value',routes.getSortingPlaces);
 app.get('/location/:id/:lat/:long/',routes.getLocationLatAndLong);
 app.get('/location/:id/',routes.getLocation);
-app.get('/getFavorities/:loginUserId',routes.getFavoritiesDetails);
+app.get('/places/favorites/:loginUserId',routes.getFavoritiesDetails);
 app.get('/getFavoritiesLocation/:locationid',routes.getFavoritiesLocationDetails);
-app.delete('/deletefavorite/:favorite',routes.deleteFavoritiesDetails);
-app.post('/addFavorities',routes.addFavoritiesData);
+app.delete('/places/favorite/:favorite',routes.deleteFavoritiesDetails);
+app.post('/places/favorite',routes.addFavoritiesData);
 // app.get('/technology',routes.getTechnology);
 // app.get('/domain',routes.getDoamin);
 // app.get('/dashboard',routes.getDashboard);

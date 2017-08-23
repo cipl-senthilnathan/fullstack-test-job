@@ -1,24 +1,33 @@
 <div class="container" ng-controller="AddLocationCtrl" data-ng-app="myApp">
 <div class="form-row">
 	<div class="col-xs-6 col-sm-6 offset">
-			<form class="form-horizontal" id="uploadForm" name="usercaseform" enctype="multipart/form-data" action="/location" method="post">
+			<form name="locationForm" class="form-horizontal" id="uploadForm" name="usercaseform" enctype="multipart/form-data" action="/location" method="post">
 				<input class="form-controls" type="id" name="id" ng-model="locationid" ng-hide="true"  placeholder="id" />
+			   
 			    <div class="form-group">
 			      <label class="control-label col-sm-4" for="locationName">Location Name</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="email" placeholder="Enter location name" name="locationname" ng-model="locationname" ng-readonly="truefalse" required>
+			      		<input type="text" class="form-control" id="email" placeholder="Enter location name" name="locationname" ng-model="locationname" ng-readonly="truefalse" ng-pattern="/^[a-zA-Z ]{1,30}$/" required>
 			      	</div>
 			    </div>
+			     <div ng-show="locationForm.$submitted || locationForm.locationname.$touched">
+                    <div ng-show="locationForm.locationname.$error.required" style="color:red; padding-left: 186px;">Location name required
+                    </div>
+                </div>
+                <span class="alert" style="color:red;padding-left: 186px;" ng-show="locationForm.locationname.$error.pattern">Please enter alphabets only</span>
+
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="description">Description</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="description" placeholder="Enter description" name="description" ng-model="description" required>
+			      		<input type="text" class="form-control" id="description" placeholder="Enter description" name="description" ng-model="description" ng-pattern="/^[a-zA-Z 0-9]{1,130}$/" required>
 			      	</div>
 			    </div>
-			     <!-- <div class="form-group">
-			      <label for="photos">Photos</label>
-			      <input type="text" class="form-control" id="email" placeholder="Enter photo" name="photos">
-			    </div> -->
+			     <div ng-show="locationForm.$submitted || locationForm.description.$touched">
+                    <div ng-show="locationForm.description.$error.required" style="color:red; padding-left: 186px;">Description required
+                    </div>
+                </div>
+              	<span class="alert" style="color:red;padding-left: 186px;" ng-show="locationForm.description.$error.pattern">Please enter alphabets only</span>
+
 			     <div class="form-group">
 			     <label class="control-label col-sm-4" for="photos">Photos</label>
 			     	<div class="col-sm-8">
@@ -27,36 +36,73 @@
                         <img ng-src="{{ thumbnail.dataUrl }}" style="border:solid 1px #b1a5a5;width:100px;height:100px;margin:5px;float:left;" /> 
                     </div>
                 </div>
+                 <div ng-show="locationForm.$submitted || locationForm.userPhoto.$touched">
+                    <div ng-show="locationForm.userPhoto.$error.required" style="color:red; padding-left: 186px;">Image required
+                    </div>
+                </div>
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="zipCode">ZipCode</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="zipCode" placeholder="Enter zip code" name="zipCode" ng-model="zipCode" required>
+			      		<input type="text" class="form-control" id="zipCode" placeholder="Enter zip code" name="zipCode" ng-model="zipCode" ng-pattern="/^[0-9 ]{1,10}$/" required>
 			      	</div>
 			    </div>
+			     <div ng-show="locationForm.$submitted || locationForm.zipCode.$touched">
+                    <div ng-show="locationForm.zipCode.$error.required" style="color:red; padding-left: 186px;">Zipcode required
+                    </div>
+                </div>
+                <span class="alert" style="color:red;padding-left: 186px;" ng-show="locationForm.zipCode.$error.pattern">Please enter numbers only</span>
+
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="province">Province</label>
 			      	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="province" placeholder="Enter province" name="province" ng-model="province" required>
+			      		<input type="text" class="form-control" id="province" placeholder="Enter province" name="province" ng-model="province" ng-pattern="/^[a-zA-Z ]{1,30}$/" required>
 			      	</div>
 			    </div>
+			     <div ng-show="locationForm.$submitted || locationForm.province.$touched">
+                    <div ng-show="locationForm.province.$error.required" style="color:red; padding-left: 186px;">Province required
+                    </div>
+                </div>
+
+                <span class="alert" style="color:red;padding-left: 186px;" ng-show="locationForm.province.$error.pattern">Please enter alphabets only</span>
+
 			    <div class="form-group">
 			      <label class="control-label col-sm-4" for="country">Country</label>
 			       	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="country" placeholder="Enter country" name="country" ng-model="country" required>
+			      		<input type="text" class="form-control" id="country" placeholder="Enter country" name="country" ng-model="country" ng-pattern="/^[a-zA-Z ]{1,30}$/" required>
 			      	</div>
 			    </div>
+			     <div ng-show="locationForm.$submitted || locationForm.country.$touched">
+                    <div ng-show="locationForm.country.$error.required" style="color:red; padding-left: 186px;">Country required
+                    </div>
+                </div>
+
+                <span class="alert" style="color:red;padding-left: 186px;" ng-show="locationForm.country.$error.pattern">Please enter alphabets only</span>
+
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="city">City</label>
 			       	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="city" placeholder="Enter city" name="city" ng-model="city" required>
+			      		<input type="text" class="form-control" id="city" placeholder="Enter city" name="city" ng-model="city" ng-pattern="/^[a-zA-Z ]{1,30}$/"
+			      		required>
 			      	</div>
 			    </div>
+			     <div ng-show="locationForm.$submitted || locationForm.city.$touched">
+                    <div ng-show="locationForm.city.$error.required" style="color:red; padding-right: 215px;margin-left: 186px">City required
+                    </div>
+                </div>
+                 <span class="alert" style="color:red;padding-right: 215px;margin-left: 186px" ng-show="locationForm.city.$error.pattern">Please enter alphabets only</span>
+
 			     <div class="form-group">
 			      <label class="control-label col-sm-4" for="address">Address</label>
 			       	<div class="col-sm-8">
-			      		<input type="text" class="form-control" id="address" placeholder="Enter address" name="address" ng-model="address" required>
+			      		<input type="text" class="form-control" id="address" placeholder="Enter address" name="address" ng-model="address" ng-pattern="/^[a-zA-Z  0-9]{1,40}$/" required>
 			      	</div>
 			    </div>
+			     <div ng-show="locationForm.$submitted || locationForm.address.$touched">
+                    <div ng-show="locationForm.address.$error.required" style="color:red; padding-left: 186px;">Address required
+                    </div>
+                </div>
+                 <span class="alert" style="color:red;padding-left: 186px;" ng-show="locationForm.address.$error.pattern">Please enter alphabets only</span>
+
 			    <div class="col-sm-offset-6 col-sm-8">			    
 			    <input type="submit" class="btn btn-default"  value="Submit" />
 			    </div>
