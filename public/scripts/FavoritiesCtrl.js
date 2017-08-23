@@ -1,6 +1,6 @@
  var favorities = angular.module('myApp.FavoritiesCtrl', ['ui.bootstrap']);
 
-  favorities.controller('FavoritiesCtrl', ['$scope','$rootScope', '$http','$location','$window','$timeout', function($scope,$rootScope, $http,$location,$window,$timeout) {   
+  favorities.controller('FavoritiesCtrl', ['$scope','$rootScope', '$http','$location','$state','$window','$timeout', function($scope,$rootScope, $http,$location,$state,$window,$timeout) {   
 
 			$scope.loginUserId	=$window.sessionStorage.getItem('loginUserId');
  			$scope.userFavorities=[];
@@ -15,7 +15,6 @@
 			      $http.get('/getFavoritiesLocation/'+$scope.userFavorities).success(function(response) {
 		          $scope.favoritiesLocations = response; 	
 		           });
-
 		      	$location.path('/favorities');
 		      });
 		    };
@@ -33,6 +32,8 @@
 				$http.delete('/places/favorite/'+favorite).success(function(response) {
 		      	$scope.placesList = response;
 		      	alert("Deleted Successfully");
+		      	$state.reload();
+		      	$scope.getFavoritiesList();
 		      	$location.path('/favorities');
 		      });
 		    };
